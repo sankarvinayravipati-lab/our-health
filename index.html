@@ -1,0 +1,1613 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Health | Health Care Guide</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f9fc;
+    color: #183247;
+}
+
+header {
+    background: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 15px #dce8ee;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    color: #087e8b;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.hero {
+    padding: 75px 8%;
+    text-align: center;
+    background: linear-gradient(120deg, #087e8b, #21b6a8);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 43px;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.search {
+    max-width: 550px;
+    margin: auto;
+    display: flex;
+    background: white;
+    padding: 7px;
+    border-radius: 12px;
+}
+
+.search input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.search button {
+    background: #ffb703;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.section {
+    padding: 55px 8%;
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    padding: 28px;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px #dce8ee;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.emoji {
+    font-size: 40px;
+}
+
+.card h3 {
+    margin: 15px 0;
+    color: #087e8b;
+}
+
+.card p {
+    line-height: 1.6;
+    color: #526575;
+}
+
+.card button {
+    margin-top: 18px;
+    padding: 11px 18px;
+    background: #087e8b;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #065e68;
+}
+
+.notice {
+    background: #fff4d6;
+    margin: 10px 8% 40px;
+    padding: 20px;
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+footer {
+    background: #123b4a;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    line-height: 1.8;
+}
+
+/* Disease details popup */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 550px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    line-height: 1.8;
+}
+
+.modal-content h2 {
+    color: #087e8b;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    white-space: pre-line;
+}
+
+.close-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #087e8b;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.no-results {
+    text-align: center;
+    padding: 25px;
+    grid-column: 1 / -1;
+}
+
+@media(max-width:600px) {
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    header {
+        padding: 18px 5%;
+    }
+
+    .section {
+        padding: 40px 5%;
+    }
+}
+
+/* Category Filter Design */
+
+.category-filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.category-filter button {
+    background: #ffffff;
+    color: #07566b;
+    border: 2px solid #07566b;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.category-filter button:hover {
+    background: #07566b;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ===== PROFESSIONAL HEALTH POPUP ===== */
+
+.modal {
+    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.65);
+    padding: 15px;
+}
+
+.modal-content {
+    background: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 28px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    animation: popupShow 0.35s ease;
+}
+
+@keyframes popupShow {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Popup Title */
+
+#modalTitle {
+    color: #07566b;
+    font-size: 25px;
+    margin-bottom: 22px;
+    border-bottom: 2px solid #e5eeee;
+    padding-bottom: 15px;
+}
+
+/* Section Headings */
+
+#modalText h3 {
+    font-size: 18px;
+    margin-top: 22px;
+    margin-bottom: 8px;
+}
+
+/* Symptoms */
+
+#modalText h3:nth-of-type(1) {
+    color: #e63946;
+}
+
+/* Causes */
+
+#modalText h3:nth-of-type(2) {
+    color: #f77f00;
+}
+
+/* Prevention */
+
+#modalText h3:nth-of-type(3) {
+    color: #2a9d55;
+}
+
+/* Treatment */
+
+#modalText h3:nth-of-type(4) {
+    color: #1976d2;
+}
+
+/* Doctor Advice */
+
+#modalText h3:nth-of-type(5) {
+    color: #8e44ad;
+}
+
+/* Paragraph */
+
+#modalText p {
+    color: #444444;
+    font-size: 15px;
+    line-height: 1.8;
+    background: #f5f9fa;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+/* Close Button */
+
+.modal-content .close-btn {
+    background: #07566b;
+    color: white;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.modal-content .close-btn:hover {
+    background: #043e4e;
+}
+
+/* Mobile Responsive */
+
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        max-height: 88vh;
+    }
+
+    #modalTitle {
+        font-size: 21px;
+    }
+
+    #modalText h3 {
+        font-size: 16px;
+    }
+
+    #modalText p {
+        font-size: 14px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">💚 OUR HEALTH</div>
+
+    <select id="language">
+        <option value="en">English</option>
+        <option value="te">తెలుగు</option>
+        <option value="hi">हिन्दी</option>
+    </select>
+</header>
+
+<section class="hero">
+    <h1 id="heading"></h1>
+    <p id="subtitle"></p>
+
+    <div class="search">
+        <input type="text" id="searchInput"
+       oninput="renderCards()"
+       placeholder="Search diseases...">
+        <button id="searchBtn" onclick="searchDisease()"></button>
+    </div>
+</section>
+
+<section class="section">
+    <h2 id="diseaseTitle"></h2>
+
+<div class="category-filter">
+
+    <button onclick="filterCategory('all')">
+        All Diseases
+    </button>
+
+    <button onclick="filterCategory('infectious')">
+        Infectious
+    </button>
+
+    <button onclick="filterCategory('chronic')">
+        Chronic
+    </button>
+
+    <button onclick="filterCategory('other')">
+        Other
+    </button>
+
+</div>
+
+    <div class="cards" id="cards"></div>
+</section>
+
+<div class="notice" id="notice"></div>
+
+<footer>
+    <p id="copyright"></p>
+    <p id="footerText"></p>
+</footer>
+
+<!-- Disease details popup -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h2 id="modalTitle"></h2>
+        <div id="modalText"></div>
+        <button class="close-btn" id="closeBtn" onclick="closeInfo()"></button>
+    </div>
+</div>
+
+<script>
+
+// WEBSITE TRANSLATIONS
+
+const translations = {
+    en: {
+        heading: "Your Health, Our Priority",
+        subtitle: "Learn about diseases, healthy food and wellness.",
+        diseaseTitle: "Common Health Problems",
+        search: "Search",
+        placeholder: "Search diseases...",
+        read: "Read More",
+        close: "Close",
+        noResults: "No diseases found.",
+        notice: "<strong>Medical Disclaimer:</strong> This website provides general health education only. It does not replace a doctor's advice. Consult a qualified healthcare professional for medical advice.",
+        copyright: "© 2026 OUR HEALTH | Health Awareness Website",
+        footer: "Stay Healthy • Stay Happy 💚"
+    },
+
+    te: {
+        heading: "మీ ఆరోగ్యమే మా ప్రాధాన్యత",
+        subtitle: "వ్యాధులు, ఆరోగ్యకరమైన ఆహారం మరియు ఆరోగ్యం గురించి తెలుసుకోండి.",
+        diseaseTitle: "సాధారణ ఆరోగ్య సమస్యలు",
+        search: "వెతకండి",
+        placeholder: "వ్యాధుల పేర్లు వెతకండి...",
+        read: "మరింత చదవండి",
+        close: "మూసివేయండి",
+        noResults: "వ్యాధులు ఏవీ కనుగొనబడలేదు.",
+        notice: "<strong>వైద్య గమనిక:</strong> ఈ వెబ్‌సైట్ సాధారణ ఆరోగ్య అవగాహన కోసం మాత్రమే. ఇది డాక్టర్ సలహాకు ప్రత్యామ్నాయం కాదు. వైద్య సలహా కోసం అర్హత కలిగిన వైద్యుడిని సంప్రదించండి.",
+        copyright: "© 2026 OUR HEALTH | ఆరోగ్య అవగాహన వెబ్‌సైట్",
+        footer: "ఆరోగ్యంగా ఉండండి • ఆనందంగా జీవించండి 💚"
+    },
+
+    hi: {
+        heading: "आपका स्वास्थ्य, हमारी प्राथमिकता",
+        subtitle: "बीमारियों, स्वस्थ भोजन और स्वास्थ्य के बारे में जानें।",
+        diseaseTitle: "सामान्य स्वास्थ्य समस्याएं",
+        search: "खोजें",
+        placeholder: "बीमारियों के नाम खोजें...",
+        read: "और पढ़ें",
+        close: "बंद करें",
+        noResults: "कोई बीमारी नहीं मिली।",
+        notice: "<strong>चिकित्सा सूचना:</strong> यह वेबसाइट केवल सामान्य स्वास्थ्य शिक्षा के लिए है। यह डॉक्टर की सलाह का विकल्प नहीं है। चिकित्सा सलाह के लिए योग्य डॉक्टर से मिलें।",
+        copyright: "© 2026 OUR HEALTH | स्वास्थ्य जागरूकता वेबसाइट",
+        footer: "स्वस्थ रहें • खुश रहें 💚"
+    }
+};
+
+
+// DISEASE INFORMATION
+// Each disease contains English, Telugu and Hindi information.
+
+const diseases = [
+{
+id:"fever", emoji:"🌡️",
+category:"infectious",
+name:["Fever","జ్వరం","बुखार"],
+desc:[
+"Learn about fever symptoms, rest and hydration.",
+"జ్వరం లక్షణాలు, విశ్రాంతి మరియు నీరు తాగడం గురించి తెలుసుకోండి.",
+"बुखार के लक्षण, आराम और पर्याप्त पानी पीने के बारे में जानें।"
+],
+info:[
+"Fever is a temporary rise in body temperature, often due to an infection.\n\nCommon symptoms: High temperature, sweating, chills and weakness.\n\nCare: Rest, drink enough fluids and monitor your temperature. Seek medical advice if fever is severe, persistent or accompanied by worrying symptoms.",
+"జ్వరం అనేది శరీర ఉష్ణోగ్రత తాత్కాలికంగా పెరగడం. ఇది తరచుగా ఇన్ఫెక్షన్ వల్ల వస్తుంది.\n\nలక్షణాలు: శరీర ఉష్ణోగ్రత పెరగడం, చెమటలు, వణుకు మరియు నీరసం.\n\nజాగ్రత్తలు: విశ్రాంతి తీసుకోండి, తగినంత ద్రవాలు తాగండి. జ్వరం తీవ్రంగా ఉంటే లేదా తగ్గకపోతే వైద్యుడిని సంప్రదించండి.",
+"बुखार शरीर के तापमान में अस्थायी वृद्धि है, जो अक्सर संक्रमण के कारण होता है।\n\nलक्षण: तेज तापमान, पसीना, ठंड लगना और कमजोरी।\n\nदेखभाल: आराम करें, पर्याप्त तरल पदार्थ लें। बुखार गंभीर हो या बना रहे तो डॉक्टर से मिलें।"
+],
+
+details: {
+    symptoms: [
+        "High temperature, sweating, chills and weakness.",
+        "శరీర ఉష్ణోగ్రత పెరగడం, చెమటలు, వణుకు మరియు నీరసం.",
+        "तेज तापमान, पसीना, ठंड लगना और कमजोरी।"
+    ],
+
+    causes: [
+        "Viral infections, bacterial infections and other illnesses.",
+        "వైరల్ ఇన్ఫెక్షన్లు, బ్యాక్టీరియా ఇన్ఫెక్షన్లు మరియు ఇతర అనారోగ్యాలు.",
+        "वायरल संक्रमण, बैक्टीरियल संक्रमण और अन्य बीमारियाँ।"
+    ],
+
+    prevention: [
+        "Wash hands regularly, maintain hygiene and avoid close contact with sick people.",
+        "చేతులను క్రమం తప్పకుండా కడుక్కోండి, పరిశుభ్రత పాటించండి మరియు అనారోగ్యంతో ఉన్నవారికి దగ్గరగా ఉండకండి.",
+        "नियमित रूप से हाथ धोएँ, स्वच्छता रखें और बीमार लोगों के निकट संपर्क से बचें।"
+    ],
+
+    treatment: [
+        "Take rest and drink enough fluids. Consult a doctor for appropriate treatment.",
+        "విశ్రాంతి తీసుకోండి, తగినంత ద్రవాలు తాగండి. సరైన చికిత్స కోసం వైద్యుడిని సంప్రదించండి.",
+        "आराम करें और पर्याप्त तरल पदार्थ पिएँ। उचित उपचार के लिए डॉक्टर से सलाह लें।"
+    ],
+
+    doctor: [
+        "Consult a doctor if fever is severe, persistent or accompanied by difficulty breathing, confusion or other worrying symptoms.",
+        "జ్వరం తీవ్రంగా ఉంటే, తగ్గకపోతే లేదా శ్వాస తీసుకోవడంలో ఇబ్బంది, గందరగోళం వంటి లక్షణాలు ఉంటే వైద్యుడిని సంప్రదించండి.",
+        "बुखार गंभीर हो, बना रहे या साँस लेने में कठिनाई, भ्रम जैसे लक्षण हों तो डॉक्टर से मिलें।"
+    ]
+},
+
+keywords:["temperature","జ్వరము","ताप"]
+},
+
+{
+    id: "cold", emoji: "🤧",
+    category: "infectious",
+    name: ["Common Cold", "జలుబు", "जुकाम"],
+    desc: [
+      "Learn about cold symptoms and self-care.",
+      "జలుబు లక్షణాలు మరియు స్వీయ రక్షణ పద్ధతుల గురించి తెలుసుకోండి.",
+      "जुकाम के लक्षण और देखभाल के उपाय समझें।"
+    ],
+    info: [
+      "Common cold is a viral infection affecting the nose and throat.\n\nCommon symptoms: Runny nose, sneezing, sore throat, and mild cough.",
+      "జలుబు అనేది ముక్కు మరియు గొంతును ప్రభావితం చేసే వైరల్ ఇన్ఫెక్షన్.\n\nలక్షణాలు: ముక్కు కారడం, తుమ్ములు, గొంతు నొప్పి మరియు తేలికపాటి దగ్గు.",
+      "जुकाम नाक और गले को प्रभावित करने वाला एक वायरल संक्रमण है।\n\nलक्षण: नाक बहना, छींकें आना, गले में खराश और हल्की खांसी।"
+    ],
+    details: {
+      symptoms: [
+        "Runny or stuffy nose, sneezing, sore throat, cough, and mild tiredness.",
+        "ముక్కు కారడం లేదా ముక్కు దిబ్బడ, తుమ్ములు, గొంతు నొప్పి, దగ్గు మరియు తేలికపాటి అలసట.",
+        "नाक बहना या बंद होना, छींकें, गले में खराश, खांसी और हल्की थकान।"
+      ],
+      causes: [
+        "Viral infections (mainly Rhinoviruses) spread through airborne droplets or touching infected surfaces.",
+        "వైరల్ ఇన్ఫెక్షన్లు (ముఖ్యంగా రైనోవైరస్), గాలిలోని తుంపర్లు లేదా కలుషిత ఉపరితలాలను తాకడం ద్వారా వ్యాపిస్తుంది.",
+        "वायरल संक्रमण (मुख्य रूप से राइनोवायरस), हवा में फैले ड्रॉपलेट्स या दूषित सतहों को छूने से फैलता है।"
+      ],
+      prevention: [
+        "Wash hands frequently with soap, maintain hygiene, and avoid close contact with infected individuals.",
+        "సబ్బుతో చేతులను తరచుగా కడుక్కోండి, పరిశుభ్రత పాటించండి మరియు జలుబు ఉన్నవారికి దూరంగా ఉండండి.",
+        "नियमित रूप से साबुन से हाथ धोएं, स्वच्छता रखें और संक्रमित व्यक्तियों के अधिक निकट जाने से बचें।"
+      ],
+      treatment: [
+        "Get adequate rest, drink warm liquids, steam inhalation, and gargle with warm salt water.",
+        "తగినంత విశ్రాంతి తీసుకోండి, గోరువెచ్చని ద్రవాలు తాగండి, ఆవిరి పట్టండి మరియు ఉప్పు నీటితో పుక్కిలించండి.",
+        "पर्याप्त आराम करें, गुनगुने तरल पदार्थ पिएं, भाप लें और गुनगुने नमक के पानी से गरारे करें।"
+      ],
+      doctor: [
+        "Consult a doctor if you have high fever, severe breathing difficulty, chest pain, or if symptoms last more than 10 days.",
+        "తీవ్రమైన జ్వరం, శ్వాస తీసుకోవడంలో ఇబ్బంది, ఛాతీ నొప్పి లేదా లక్షణాలు 10 రోజుల కంటే ఎక్కువ కాలం తగ్గకపోతే వైద్యుడిని సంప్రదించండి.",
+        "यदि तेज बुखार हो, सांस लेने में अत्यधिक कठिनाई, सीने में दर्द हो या लक्षण 10 दिनों से अधिक समय तक बने रहें तो डॉक्टर से मिलें।"
+      ]
+    }
+  },
+{
+    id: "headache", emoji: "🤕",
+    category: "other",
+    name: ["Headache", "తలనొప్పి", "सिरदर्द"],
+    desc: [
+      "Understand headache causes and healthy habits.",
+      "తలనొప్పి కారణాలు మరియు ఆరోగ్యకరమైన అలవాట్లను తెలుసుకోండి.",
+      "सिरदर्द के कारण और स्वस्थ आदतों को समझें।"
+    ],
+    info: [
+      "Headache is pain or discomfort in the head, scalp, or neck area.\n\nCommon symptoms: Throbbing pain, forehead pressure, and sensitivity to light or sound.",
+      "తలనొప్పి అనేది తల, మెడ లేదా నుదిటి భాగంలో వచ్చే నొప్పి లేదా అసౌకర్యం.\n\nలక్షణాలు: తల భారంగా ఉండటం, పోట్లు పొడవడం మరియు వెలుతురు లేదా శబ్దాలకు అసౌకర్యం.",
+      "सिरदर्द सिर, खोपड़ी या गर्दन के क्षेत्र में होने वाला दर्द या बेचैनी है।\n\nलक्षण: तेज सिरदर्द, माथे पर दबाव, और तेज रोशनी या आवाज से परेशानी।"
+    ],
+    details: {
+      symptoms: [
+        "Dull aching pain, tightness across forehead, throbbing sensation, and fatigue.",
+        "మందకొడిగా లేదా తీవ్రంగా నొప్పి రావడం, నుదిటిపై బిగుతుగా అనిపించడం, తలపోటు మరియు అలసట.",
+        "हल्का या तेज दर्द, माथे पर जकड़न, सिर में भारीपन और थकान महसूस होना।"
+      ],
+      causes: [
+        "Stress, lack of sleep, dehydration, eye strain from screens, or skipped meals.",
+        "ఒత్తిడి, నిద్రలేమి, తగినంత నీరు తాగకపోవడం, కంప్యూటర్/ఫోన్ స్క్రీన్ ఎక్కువసేపు చూడటం మరియు సమయానికి ఆహారం తీసుకోకపోవడం.",
+        "तनाव, नींद की कमी, पानी की कमी (डिहाइड्रेशन), स्क्रीन पर अधिक समय बिताना या खाना छोड़ना।"
+      ],
+      prevention: [
+        "Maintain regular sleep schedules, drink enough water, manage stress, and take screen breaks.",
+        "క్రమం తప్పకుండా సమయానికి నిద్రపోండి, తగినంత నీరు తాగండి, ఒత్తిడిని తగ్గించుకోండి మరియు స్క్రీన్ చూసేటప్పుడు మధ్యమధ్యలో విరామం ఇవ్వండి.",
+        "नियमित नींद का समय बनाए रखें, भरपूर पानी पिएं, तनाव कम करें और स्क्रीन से नियमित ब्रेक लें।"
+      ],
+      treatment: [
+        "Rest in a quiet, dark room, stay hydrated, apply a cold/warm compress to your forehead, and practice deep breathing.",
+        "నిశ్శబ్దమైన, కాంతి తక్కువగా ఉన్న గదిలో విశ్రాంతి తీసుకోండి, నీరు తాగండి, నుదిటిపై చల్లటి లేదా వెచ్చని క్లాత్ ఉంచండి మరియు ప్రశాంతంగా శ్వాస తీసుకోండి.",
+        "शांत और अंधेरे कमरे में आराम करें, पानी पिएं, माथे पर ठंडा या गर्म सेक लगाएं और गहरी सांस लें।"
+      ],
+      doctor: [
+        "Consult a doctor immediately if headache is sudden and extremely severe, follows a head injury, or is accompanied by confusion, stiff neck, or vision changes.",
+        "తలనొప్పి అకస్మాత్తుగా తీవ్రంగా వచ్చినా, తలకు దెబ్బ తగిలిన తర్వాత వచ్చినా, చూపు మందగించడం, మెడ పట్టేయడం లేదా మైకం వంటి లక్షణాలు ఉంటే వెంటనే వైద్యుడిని సంప్రదించండి.",
+        "यदि सिरदर्द अचानक और बहुत तेज हो, सिर में चोट लगने के बाद हो, या चक्कर, गर्दन में अकड़न व धुंधला दिखने जैसे लक्षण हों तो तुरंत डॉक्टर से मिलें।"
+      ]
+    }
+  },
+
+{
+    id: "diabetes", emoji: "🩸",
+    category: "chronic",
+    name: ["Diabetes", "మధుమేహం (షుగర్)", "मधुमेह (डायबिटीज)"],
+    desc: [
+      "Understand blood sugar levels, diet, and healthy lifestyle.",
+      "రక్తంలో చక్కెర స్థాయిలు, ఆహార నియమాలు మరియు ఆరోగ్యకరమైన జీవనశైలిని తెలుసుకోండి.",
+      "रक्त शर्करा (ब्लड शुगर), खान-पान और स्वस्थ जीवनशैली को समझें।"
+    ],
+    info: [
+      "Diabetes is a chronic condition that affects how your body turns food into energy.\n\nCommon symptoms: Frequent urination, increased thirst, and unexplained weight loss.",
+      "మధుమేహం అనేది ఆహారం శక్తిగా మారే ప్రక్రియను ప్రభావితం చేసే దీర్ఘకాలిక సమస్య.\n\nలక్షణాలు: తరచుగా మూత్రవిసర్జన, విపరీతమైన దాహం మరియు కారణం లేకుండా బరువు తగ్గడం.",
+      "मधुमेह एक दीर्घकालिक स्थिति है जो शरीर में भोजन को ऊर्जा में बदलने की प्रक्रिया को प्रभावित करती है।\n\nलक्षण: बार-बार पेशाब आना, अत्यधिक प्यास लगना और बिना कारण वजन कम होना।"
+    ],
+    details: {
+      symptoms: [
+        "Frequent urination (especially at night), excessive thirst, extreme fatigue, blurry vision, and slow-healing sores.",
+        "రాత్రిపూట తరచుగా మూత్రవిసర్జన, విపరీతమైన దాహం, తీవ్రమైన అలసట, చూపు మందగించడం మరియు గాయాలు త్వరగా మానకపోవడం.",
+        "बार-बार पेशाब आना (विशेषकर रात में), अत्यधिक प्यास, बहुत थकान, धुंधला दिखाई देना और घावों का देर से भरना।"
+      ],
+      causes: [
+        "Insufficient insulin production by the pancreas, insulin resistance, genetics, lack of physical activity, and obesity.",
+        "క్లోమం సరిపడా ఇన్సులిన్‌ను ఉత్పత్తి చేయకపోవడం, ఇన్సులిన్ రెసిస్టెన్స్, వంశపారంపర్యత, వ్యాయామం లేకపోవడం మరియు అధిక బరువు.",
+        "अग्न्याशय द्वारा पर्याप्त इंसुलिन न बनना, इंसुलिन प्रतिरोध, आनुवंशिकी, शारीरिक गतिविधि की कमी और मोटापा।"
+      ],
+      prevention: [
+        "Eat a balanced diet rich in fiber, exercise regularly for 30 minutes daily, maintain a healthy body weight, and avoid sugary drinks.",
+        "పీచు పదార్థాలు ఎక్కువగా ఉండే సమతులాహారం తీసుకోండి, రోజూ 30 నిమిషాలు వ్యాయామం చేయండి, శరీర బరువును నియంత్రణలో ఉంచండి మరియు తీపి పదార్థాలు/పానీయాలను తగ్గించండి.",
+        "फाइबर युक्त संतुलित आहार लें, रोजाना 30 मिनट व्यायाम करें, वजन नियंत्रित रखें और मीठे पेय पदार्थों से बचें।"
+      ],
+      treatment: [
+        "Regular blood glucose monitoring, prescribed medications or insulin therapy, healthy meal planning, and regular physical activity.",
+        "రక్తంలో చక్కెర స్థాయిలను క్రమం తప్పకుండా పరీక్షించడం, వైద్యులు సూచించిన మందులు లేదా ఇన్సులిన్ తీసుకోవడం, సరైన ఆహార నియమాలు మరియు శారీరక శ్రమ.",
+        "नियमित ब्लड शुगर की जांच, डॉक्टर द्वारा सुझाई गई दवाएं या इंसुलिन, सही खान-पान और नियमित शारीरिक गतिविधि।"
+      ],
+      doctor: [
+        "Consult a doctor immediately if blood sugar is consistently high, feeling extremely dizzy or confused, experiencing persistent vomiting, or noticing non-healing foot sores.",
+        "షుగర్ లెవల్స్ క్రమం తప్పకుండా చాలా ఎక్కువగా ఉన్నా, విపరీతమైన కళ్ళు తిరగడం లేదా తికమక పడటం, తరచూ వాంతులు రావడం లేదా కాళ్ళపై పుండ్లు మానకపోతే వెంటనే వైద్యుడిని సంప్రదించండి.",
+        "यदि ब्लड शुगर लगातार बहुत अधिक बना रहे, अत्यधिक चक्कर आएं या भ्रम महसूस हो, लगातार उल्टी हो या पैर के घाव न भरें तो तुरंत डॉक्टर से संपर्क करें।"
+      ]
+    }
+  },
+
+{
+    id: "malaria", emoji: "🦟",
+    category: "infectious",
+    name: ["Malaria", "మలేరియా", "मलेरिया"],
+    desc: [
+      "Learn about malaria symptoms and prevention.",
+      "మలేరియా లక్షణాలు మరియు నివారణ పద్ధతుల గురించి తెలుసుకోండి.",
+      "मलेरिया के लक्षण और रोकथाम के उपाय समझें।"
+    ],
+    info: [
+      "Malaria is a life-threatening disease spread to humans by certain types of infected female Anopheles mosquitoes.\n\nCommon symptoms: High fever, shaking chills, and profuse sweating.",
+      "మలేరియా అనేది ఇన్ఫెక్షన్ సోకిన ఆడ అనాఫిలిస్ దోమల కాటు ద్వారా వ్యాపించే తీవ్రమైన వ్యాధి.\n\nలక్షణాలు: తీవ్రమైన జ్వరం, వణుకు పుట్టించే చలి మరియు విపరీతమైన చెమటలు పట్టడం.",
+      "मलेरिया एक गंभीर बीमारी है जो संक्रमित मादा एनोफिलीज मच्छरों के काटने से इंसानों में फैलती है।\n\nलक्षण: तेज बुखार, कंपकंपी के साथ ठंड लगना और बहुत अधिक पसीना आना।"
+    ],
+    details: {
+      symptoms: [
+        "High fever with shivering chills, profuse sweating as fever breaks, headache, nausea, vomiting, and muscle fatigue.",
+        "వణుకుతో కూడిన తీవ్ర జ్వరం, జ్వరం తగ్గే సమయంలో విపరీతమైన చెమటలు, తలనొప్పి, వికారం, వాంతులు మరియు కండరాల నీరసం.",
+        "कंपकंपी के साथ तेज बुखार, बुखार उतरते समय अत्यधिक पसीना, सिरदर्द, मतली, उल्टी और मांसपेशियों में कमजोरी।"
+      ],
+      causes: [
+        "Plasmodium parasites transmitted into the bloodstream through bites of infected female Anopheles mosquitoes.",
+        "ఇన్ఫెక్షన్ ఉన్న ఆడ అనాఫిలిస్ దోమలు కుట్టడం వల్ల ప్లాస్మోడియం అనే పరాన్నజీవులు రక్తంలో చేరడం.",
+        "संक्रमित मादा एनोफिलीज मच्छर के काटने से प्लास्मोडियम परजीवी का खून में पहुंचना।"
+      ],
+      prevention: [
+        "Use mosquito nets while sleeping, apply mosquito repellent lotions, avoid stagnant water accumulation around home, and wear full-sleeve clothes.",
+        "పడుకునేటప్పుడు దోమతెరలు వాడండి, దోమల నివారణ మందులు వాడండి, ఇంటి చుట్టూ మురుగు నీరు నిల్వ ఉండకుండా చూడండి మరియు ఒంటిని కప్పి ఉంచే పూర్తి దుస్తులు ధరించండి.",
+        "सोते समय मच्छरदानी का प्रयोग करें, मॉस्किटो रिपेलेंट लगाएं, घर के आसपास पानी जमा न होने दें और पूरी बाजू के कपड़े पहनें।"
+      ],
+      treatment: [
+        "Strictly take doctor-prescribed antimalarial medications after a proper blood smear test, get adequate bed rest, and drink plenty of hydrating fluids.",
+        "రక్త పరీక్ష చేయించుకున్న తర్వాత మాత్రమే వైద్యులు సూచించిన మలేరియా మందులను సరిగ్గా వాడండి, తగినంత విశ్రాంతి తీసుకోండి మరియు ద్రవపదార్థాలు ఎక్కువగా తాగండి.",
+        "रक्त परीक्षण के बाद डॉक्टर द्वारा बताई गई एंटी-मलेरियल दवाएं समय पर लें, पर्याप्त आराम करें और भरपूर पानी व तरल पदार्थ पिएं।"
+      ],
+      doctor: [
+        "Consult a doctor immediately if you develop sudden fever with chills after mosquito exposure, experience persistent vomiting, extreme weakness, or yellowish eyes and skin.",
+        "దోమలు కుట్టిన తర్వాత అకస్మాత్తుగా వణుకుతో జ్వరం వచ్చినా, ఆగకుండా వాంతులు అవుతున్నా, విపరీతమైన నీరసం లేదా కళ్ళు/చర్మం పసుపు రంగులోకి మారితే వెంటనే వైద్యుడిని సంప్రదించండి.",
+        "यदि ठंड लगकर अचानक तेज बुखार आए, लगातार उल्टियां हों, अत्यधिक कमजोरी महसूस हो या आंखें व त्वचा पीली पड़ने लगे तो तुरंत डॉक्टर को दिखाएं।"
+      ]
+    }
+  },
+{
+    id: "dengue", emoji: "🦟",
+    category: "infectious",
+    name: ["Dengue", "డెంగ్యూ", "डेंगू"],
+    desc: [
+      "Learn about dengue symptoms, platelets, and recovery.",
+      "డెంగ్యూ లక్షణాలు, ప్లేట్‌లెట్ల సంరక్షణ మరియు నివారణ గురించి తెలుసుకోండి.",
+      "डेंगू के लक्षण, प्लेटलेट्स की देखभाल और बचाव को समझें।"
+    ],
+    info: [
+      "Dengue is a viral infection transmitted to humans through the bites of infected Aedes mosquitoes.\n\nCommon symptoms: High fever, severe headache, pain behind the eyes, and severe joint pain.",
+      "డెంగ్యూ అనేది ఇన్ఫెక్షన్ సోకిన ఏడిస్ దోమల కాటు ద్వారా వ్యాపించే తీవ్రమైన వైరల్ వ్యాధి.\n\nలక్షణాలు: తీవ్రమైన జ్వరం, తీవ్ర తలనొప్పి, కళ్ళ వెనుక నొప్పి మరియు కీళ్ళ నొప్పులు.",
+      "डेंगू एक वायरल संक्रमण है जो संक्रमित एडीज मच्छर के काटने से इंसानों में फैलता है।\n\nलक्षण: तेज बुखार, गंभीर सिरदर्द, आंखों के पीछे दर्द और जोड़ों में तेज दर्द।"
+    ],
+    details: {
+      symptoms: [
+        "Sudden high fever, severe eye pain, intense muscle and joint pains (breakbone fever), skin rashes, and nausea.",
+        "అకస్మాత్తుగా వచ్చే తీవ్ర జ్వరం, కళ్ళ వెనుక తీవ్ర నొప్పి, ఎముకలు విరిగినంత తీవ్రమైన కీళ్ళ/కండరాల నొప్పులు, చర్మంపై దద్దుర్లు మరియు వికారం.",
+        "अचानक तेज बुखार, आंखों के पीछे दर्द, जोड़ों और मांसपेशियों में गंभीर दर्द, त्वचा पर चकत्ते (रैशेज) और मतली।"
+      ],
+      causes: [
+        "Dengue virus transmitted by the bite of an infected female Aedes mosquito (mainly Aedes aegypti) that bites during daytime.",
+        "పగటిపూట ఎక్కువగా కుట్టే ఏడిస్ దోమల (ముఖ్యంగా ఏడిస్ ఈజిప్టి) కాటు ద్వారా డెంగ్యూ వైరస్ రక్తంలో చేరడం.",
+        "दिन के समय काटने वाले मादा एडीज मच्छर (विशेष रूप से एडीज एजिप्टी) के काटने से डेंगू वायरस का फैलना।"
+      ],
+      prevention: [
+        "Empty and clean coolers, flower pots, and plastic containers to avoid water stagnation; use mosquito nets and wear protective clothing.",
+        "కూలర్లు, పూలకుండీలు, టైర్లు మరియు డ్రమ్ములలో నిల్వ ఉన్న నీటిని ఎప్పటికప్పుడు తొలగించండి; దోమతెరలు మరియు పూర్తి దుస్తులు వాడండి.",
+        "कूलर, गमलों और बर्तनों में पानी जमा न होने दें; मच्छरदानी का उपयोग करें और पूरे शरीर को ढकने वाले कपड़े पहनें।"
+      ],
+      treatment: [
+        "Stay strictly hydrated with oral rehydration salts (ORS), tender coconut water, and soups; take paracetamol for fever and get plenty of rest (Avoid aspirin or ibuprofen).",
+        "ఓఆర్ఎస్ (ORS), కొబ్బరి నీళ్ళు, సూప్స్ వంటి ద్రవాలు పుష్కలంగా తాగండి; జ్వరానికి పారాసిటమాల్ వాడండి మరియు పూర్తి విశ్రాంతి తీసుకోండి (ఆస్పిరిన్, బ్రూఫెన్ వాడకూడదు).",
+        "ओआरएस (ORS), नारियल पानी और सूप जैसे तरल पदार्थों का भरपूर सेवन करें; बुखार के लिए पैरासिटामोल लें और पूरा आराम करें (एस्पिरिन या ब्रूफेन न लें)।"
+      ],
+      doctor: [
+        "Consult a doctor immediately if platelets drop, or if you notice warning signs like severe belly pain, persistent vomiting, bleeding gums/nose, or extreme fatigue.",
+        "ప్లేట్‌లెట్ కౌంట్ పడిపోతున్నా, తీవ్రమైన కడుపు నొప్పి, ఆగకుండా వాంతులు, చిగుళ్ళు లేదా ముక్కు నుండి రక్తం కారడం, విపరీతమైన నిస్సత్తువ కనిపిస్తే వెంటనే ఆసుపత్రికి వెళ్ళండి.",
+        "यदि प्लेटलेट्स कम हो रहे हों, पेट में तेज दर्द हो, लगातार उल्टी हो, मसूड़ों या नाक से खून आए या अत्यधिक कमजोरी हो तो तुरंत डॉक्टर से मिलें।"
+      ]
+    }
+  },
+{
+    id: "asthma", emoji: "🫁",
+    category: "chronic",
+    name: ["Asthma", "ఆస్తమా (ఉబ్బసం)", "दमा (अस्थमा)"],
+    desc: [
+      "Understand asthma triggers, inhalers, and breathing care.",
+      "ఆస్తమా ప్రేరేపకాలు, ఇన్హేలర్లు మరియు శ్వాస సంరక్షణ గురించి తెలుసుకోండి.",
+      "अस्थमा ट्रिगर्स, इनहेलर और सांस की देखभाल को समझें।"
+    ],
+    info: [
+      "Asthma is a chronic condition in which your airways narrow, swell, and produce extra mucus, making breathing difficult.\n\nCommon symptoms: Shortness of breath, chest tightness, and wheezing.",
+      "ఆస్తమా అనేది శ్వాసనాళాలు వాచిపోయి, సన్నబడి, శ్వాస తీసుకోవడం కష్టతరం చేసే దీర్ఘకాలిక సమస్య.\n\nలక్షణాలు: శ్వాస తీసుకోవడంలో ఇబ్బంది, ఛాతీ బిగుతుగా ఉండటం మరియు పిల్లికూతలు.",
+      "अस्थमा एक दीर्घकालिक स्थिति है जिसमें वायुमार्ग संकीर्ण हो जाते हैं, सूज जाते हैं और अतिरिक्त बलगम बनता है, जिससे सांस लेना कठिन हो जाता है।\n\nलक्षण: सांस फूलना, सीने में जकड़न और घबराहट/घरघराहट।"
+    ],
+    details: {
+      symptoms: [
+        "Shortness of breath, wheezing sound while exhaling, persistent dry cough (especially at night), and chest tightness.",
+        "శ్వాస ఆడకపోవడం, ఊపిరి వదిలేటప్పుడు పిల్లికూతలు (ఈల శబ్దం), రాత్రిపూట లేదా తెల్లవారుజామున దగ్గు మరియు ఛాతీలో బిగుతుదనం.",
+        "सांस फूलना, सांस छोड़ते समय सीटी जैसी आवाज (घरघराहट), रात में लगातार खांसी और सीने में भारीपन।"
+      ],
+      causes: [
+        "Airborne allergens like dust mites and pollen, cold air, smoke, respiratory infections, and vigorous physical activity.",
+        "దుమ్ము ధూళి, పుప్పొడి రేణువులు, చల్లని గాలి, పొగ, శ్వాసకోశ ఇన్ఫెక్షన్లు మరియు అధిక శారీరక శ్రమ.",
+        "धूल, परागकण (पॉलेन), ठंडी हवा, धुआं, श्वसन संक्रमण और अत्यधिक शारीरिक परिश्रम।"
+      ],
+      prevention: [
+        "Avoid known allergy triggers, wear a mask in dusty or cold environments, keep homes clean and dust-free, and avoid smoking.",
+        "అలెర్జీ కలిగించే దుమ్ము, పొగకు దూరంగా ఉండండి, చల్లని లేదా దుమ్ము ఉన్న వాతావరణంలో మాస్క్ ధరించండి మరియు ఇంటిని శుభ్రంగా ఉంచుకోండి.",
+        "धूल और धुएं से बचें, ठंडी या धूल भरी जगहों पर मास्क पहनें, घर को साफ रखें और धूम्रपान से दूर रहें।"
+      ],
+      treatment: [
+        "Use doctor-prescribed rescue or maintenance inhalers properly, stay calm during flare-ups, and practice pursed-lip breathing exercises.",
+        "వైద్యులు సూచించిన ఇన్హేలర్లను సరైన పద్ధతిలో వాడండి, ఆస్తమా తిరగబెట్టినప్పుడు ప్రశాంతంగా ఉండండి మరియు శ్వాస సంబంధిత వ్యాయామాలు చేయండి.",
+        "डॉक्टर द्वारा बताए गए इनहेलर का सही तरीके से उपयोग करें, घबराहट से बचें और श्वास संबंधी हल्के व्यायाम करें।"
+      ],
+      doctor: [
+        "Seek immediate emergency care if you have severe shortness of breath, lips or fingernails turning blue, or if your rescue inhaler gives no relief.",
+        "శ్వాస తీసుకోవడం తీవ్రంగా కష్టమైనా, పెదవులు లేదా గోళ్లు నీలి రంగులోకి మారినా, ఇన్హేలర్ వాడినా ఉపశమనం లభించకపోతే వెంటనే అత్యవసర వైద్య సహాయం తీసుకోండి.",
+        "यदि सांस लेने में अत्यधिक कठिनाई हो, होंठ या नाखून नीले पड़ने लगें, या इनहेलर लेने के बाद भी आराम न मिले तो तुरंत आपातकालीन चिकित्सा सहायता लें।"
+      ]
+    }
+  },
+
+{
+    id: "heart-disease", emoji: "❤️",
+    category: "chronic",
+    name: ["Heart Disease", "గుండె జబ్బులు", "हृदय रोग"],
+    desc: [
+      "Understand cardiovascular health, symptoms, and heart care.",
+      "గుండె ఆరోగ్యం, గుండె జబ్బుల లక్షణాలు మరియు రక్షణ చర్యల గురించి తెలుసుకోండి.",
+      "हृदय स्वास्थ्य, लक्षणों और दिल की देखभाल के बारे में समझें।"
+    ],
+    info: [
+      "Heart disease refers to various conditions affecting the heart and blood vessels, including coronary artery disease.\n\nCommon symptoms: Chest pain, shortness of breath, and fatigue.",
+      "గుండె జబ్బులు అంటే రక్తనాళాలు మరియు గుండె పనితీరును ప్రభావితం చేసే వివిధ సమస్యలు (ముఖ్యంగా కరోనరీ ఆర్టరీ వ్యాధి).\n\nలక్షణాలు: ఛాతీలో నొప్పి లేదా బరువు, శ్వాస తీసుకోవడంలో ఇబ్బంది మరియు విపరీతమైన అలసట.",
+      "हृदय रोग दिल और रक्त वाहिकाओं को प्रभावित करने वाली विभिन्न स्थितियों (जैसे कोरोनरी धमनी रोग) को संदर्भित करता है।\n\nलक्षण: सीने में दर्द, सांस लेने में तकलीफ और अत्यधिक थकान।"
+    ],
+    details: {
+      symptoms: [
+        "Chest pain or pressure (angina), pain spreading to left arm, neck or jaw, shortness of breath, dizziness, and cold sweats.",
+        "ఛాతీలో నొప్పి లేదా బరువుగా అనిపించడం, ఎడమ చేయి, మెడ లేదా దవడ వరకు నొప్పి వ్యాపించడం, శ్వాస ఆడకపోవడం, కళ్ళు తిరగడం మరియు చల్లటి చెమటలు పట్టడం.",
+        "सीने में दर्द या भारीपन, बाएं हाथ, गर्दन या जबड़े में दर्द का फैलना, सांस फूलना, चक्कर आना और ठंडा पसीना आना।"
+      ],
+      causes: [
+        "Plaque buildup in coronary arteries, high blood pressure, high cholesterol, smoking, obesity, diabetes, and lack of exercise.",
+        "రక్తనాళాల్లో కొవ్వు (ప్లాక్) పేరుకుపోవడం, అధిక రక్తపోటు (బీపీ), అధిక కొలెస్ట్రాల్, ధూమపానం, ఊబకాయం, మధుమేహం మరియు వ్యాయామం లేకపోవడం.",
+        "धमनियों में कोलेस्ट्रॉल और प्लाक का जमना, उच्च रक्तचाप (हाई बीपी), धूम्रपान, मोटापा, मधुमेह और व्यायाम की कमी।"
+      ],
+      prevention: [
+        "Eat a heart-healthy diet low in saturated fats and salt, exercise at least 30 minutes daily, quit smoking, and manage stress.",
+        "ఉప్పు, నూనెలు మరియు కొవ్వు తక్కువగా ఉండే సమతులాహారం తీసుకోండి, రోజూ కనీసం 30 నిమిషాలు నడవండి, ధూమపానానికి దూరంగా ఉండండి మరియు ఒత్తిడిని తగ్గించుకోండి.",
+        "कम नमक और कम वसा वाला पौष्टिक आहार लें, रोजाना कम से कम 30 मिनट टहलें, धूम्रपान छोड़ें और तनाव से बचें।"
+      ],
+      treatment: [
+        "Follow doctor-prescribed medications strictly (blood thinners, statins), maintain normal blood pressure, manage weight, and attend cardiac rehabilitation.",
+        "వైద్యులు సూచించిన మందులను క్రమం తప్పకుండా వాడండి, రక్తపోటు మరియు బరువును నియంత్రణలో ఉంచుకోండి మరియు వైద్యుల పర్యవేక్షణలో ఉండండి.",
+        "डॉक्टर द्वारा दी गई दवाओं का नियमित सेवन करें, रक्तचाप और वजन को नियंत्रित रखें तथा नियमित स्वास्थ्य जांच कराएं।"
+      ],
+      doctor: [
+        "Seek emergency medical help immediately if you experience sudden crushing chest pressure, pain radiating to arm or jaw, severe breathlessness, fainting, or rapid irregular heartbeat.",
+        "ఛాతీలో విపరీతమైన నొప్పి లేదా బరువు, చేయి లేదా దవడ వైపు నొప్పి పాకడం, తీవ్రమైన శ్వాసకోశ ఇబ్బంది, స్పృహ కోల్పోవడం వంటి లక్షణాలు కనిపిస్తే వెంటనే అత్యవసర వైద్య విభాగానికి (Emergency) వెళ్ళండి.",
+        "सीने में अचानक तेज दर्द या भारीपन, जबड़े या हाथ में फैलता दर्द, सांस लेने में भारी तकलीफ या बेहोशी होने पर तुरंत नजदीकी अस्पताल के इमरजेंसी में जाएं।"
+      ]
+    }
+  },
+
+{
+    id: "cancer", emoji: "🎗️",
+    category: "chronic",
+    name: ["Cancer", "క్యాన్సర్", "कैंसर"],
+    desc: [
+      "Understand cancer signs, early screening, and healthy habits.",
+      "క్యాన్సర్ ముందస్తు సంకేతాలు, పరీక్షలు మరియు రక్షణ చర్యల గురించి తెలుసుకోండి.",
+      "कैंसर के शुरुआती लक्षण, जांच और स्वस्थ आदतों को समझें।"
+    ],
+    info: [
+      "Cancer is a condition where abnormal cells divide uncontrollably and can spread to nearby tissues.\n\nCommon warning signs: Unexplained weight loss, persistent fatigue, and unusual lumps.",
+      "క్యాన్సర్ అనేది శరీరంలోని కణాలు అసాధారణంగా పెరిగి, ఇతర కణజాలాలకు వ్యాపించే దీర్ఘకాలిక వ్యాధి.\n\nలక్షణాలు: అకస్మాత్తుగా తీవ్రంగా బరువు తగ్గడం, తగ్గని అలసట మరియు శరీరంలో అసాధారణ గడ్డలు.",
+      "कैंसर एक ऐसी स्थिति है जिसमें असामान्य कोशिकाएं अनियंत्रित रूप से बढ़ती हैं और आसपास के ऊतकों में फैल सकती हैं।\n\nलक्षण: बिना कारण वजन कम होना, लगातार थकान और शरीर में असामान्य गांठें।"
+    ],
+    details: {
+      symptoms: [
+        "Unexplained rapid weight loss, persistent fatigue, unusual lumps or swelling, skin changes, persistent cough, and changes in bowel or bladder habits.",
+        "కారణం లేకుండా బరువు వేగంగా తగ్గడం, తగ్గని తీవ్రమైన అలసట, శరీరంలో నొప్పితో లేదా నొప్పిలేని గడ్డలు ఏర్పడటం, చర్మంపై మార్పులు, తగ్గని దగ్గు మరియు మలమూత్ర విసర్జన అలవాట్లలో మార్పులు.",
+        "अचानक तेजी से वजन घटना, लगातार अत्यधिक थकान, शरीर में असामान्य गांठ या सूजन, त्वचा में बदलाव, लगातार खांसी और मल-मूत्र की आदतों में बदलाव।"
+      ],
+      causes: [
+        "Genetic mutations, tobacco and alcohol consumption, excessive radiation or chemical exposure, poor diet, obesity, and certain viral infections (like HPV, Hepatitis).",
+        "జన్యుపరమైన మార్పులు (జెనెటిక్స్), పొగాకు/ధూమపానం, మద్యం సేవించడం, హానికర రసాయనాలు/రేడియేషన్ ప్రభావం, ఊబకాయం మరియు కొన్ని వైరల్ ఇన్ఫెక్షన్లు.",
+        "आनुवंशिक म्यूटेशन, तंबाकू और शराब का अत्यधिक सेवन, हानिकारक रसायनों या रेडिएशन का संपर्क, खराब खान-पान, मोटापा और कुछ वायरल संक्रमण।"
+      ],
+      prevention: [
+        "Strictly avoid tobacco and smoking, limit alcohol, maintain a healthy body weight with balanced diet, stay physically active, and get regular age-based health screenings.",
+        "పొగాకు ఉత్పత్తులు మరియు ధూమపానాన్ని పూర్తిగా మానండి, మద్యం తగ్గించండి, పౌష్టికాహారం మరియు శారీరక శ్రమతో బరువును అదుపులో ఉంచుకోండి మరియు ఎప్పటికప్పుడు వైద్య పరీక్షలు (Screenings) చేయించుకోండి.",
+        "तंबाकू और धूम्रपान से पूरी तरह बचें, शराब से परहेज करें, संतुलित आहार और व्यायाम से वजन नियंत्रित रखें और समय पर नियमित स्वास्थ्य जांच (स्क्रीनिंग) करवाएं।"
+      ],
+      treatment: [
+        "Treatment is strictly managed by oncologists through surgery, chemotherapy, radiation therapy, immunotherapy, or targeted therapy tailored to stage and type.",
+        "క్యాన్సర్ రకం మరియు స్టేజీని బట్టి ఆంకాలజిస్ట్ (క్యాన్సర్ నిపుణుల) పర్యవేక్షణలో సర్జరీ, కీమోథెరపీ, రేడియేషన్ మరియు ఇమ్యునోథెరపీ వంటి చికిత్సలు అందించబడతాయి.",
+        "कैंसर के प्रकार और चरण के अनुसार ऑन्कोलॉजिस्ट (विशेषज्ञ डॉक्टर) की देखरेख में सर्जरी, कीमोथेरेपी, रेडिएशन थेरेपी और इम्यूनोथेरेपी से इलाज किया जाता है।"
+      ],
+      doctor: [
+        "Consult an oncologist immediately if you find any new or growing painless lump, experience non-healing sores, unexplained bleeding, difficulty swallowing, or sudden voice hoarseness lasting weeks.",
+        "శరీరంలో ఏ భాగంలోనైనా కొత్తగా గడ్డలు రావడం లేదా పెరుగుతుండటం, తగ్గని పుండ్లు, అకస్మాత్తుగా రక్తస్రావం కావడం, ఆహారం మింగడంలో తీవ్ర ఇబ్బంది లేదా వారాల తరబడి గొంతు బొంగురుపోవడం కనిపిస్తే వెంటనే వైద్యుడిని సంప్రదించండి.",
+        "यदि शरीर में कोई नई या बढ़ती हुई गांठ दिखे, घाव न भरें, असामान्य रक्तस्राव हो, निगलने में कठिनाई हो या हफ्तों तक आवाज भारी रहे तो तुरंत डॉक्टर से परामर्श करें।"
+      ]
+    }
+  },
+
+{
+    id: "tb", emoji: "🫁",
+    category: "infectious",
+    name: ["Tuberculosis (TB)", "క్షయ వ్యాధి (టిబి)", "तपेदिक (टीबी)"],
+    desc: [
+      "Learn about TB symptoms, transmission, and full treatment course.",
+      "టిబి లక్షణాలు, అది వ్యాపించే విధానం మరియు పూర్తి కోర్సు చికిత్స గురించి తెలుసుకోండి.",
+      "टीबी के लक्षण, इसके फैलने के तरीके और पूरे उपचार के बारे में समझें।"
+    ],
+    info: [
+      "Tuberculosis is a potentially serious infectious disease that mainly affects the lungs.\n\nCommon symptoms: Persistent cough lasting over 3 weeks, chest pain, and coughing up blood.",
+      "క్షయ అనేది ప్రధానంగా ఊపిరితిత్తులను ప్రభావితం చేసే తీవ్రమైన అంటువ్యాధి.\n\nలక్షణాలు: 3 వారాలకు పైగా తగ్గని దగ్గు, ఛాతీ నొప్పి మరియు దగ్గులో రక్తం పడటం.",
+      "टीबी एक गंभीर संक्रामक बीमारी है जो मुख्य रूप से फेफड़ों को प्रभावित करती है।\n\nलक्षण: 3 सप्ताह से अधिक समय तक लगातार खांसी, सीने में दर्द और खांसी में खून आना।"
+    ],
+    details: {
+      symptoms: [
+        "Persistent cough lasting 3 weeks or more, coughing up blood or mucus, chest pain, unintentional weight loss, fatigue, night sweats, and evening fever.",
+        "3 వారాలకు మించి తగ్గని దగ్గు, కఫంలో లేదా దగ్గుతో రక్తం పడటం, ఛాతీ నొప్పి, వేగంగా బరువు తగ్గడం, అలసట, రాత్రిపూట చెమటలు పట్టడం మరియు సాయంత్రం వేళల్లో జ్వరం రావడం.",
+        "3 सप्ताह से अधिक समय तक खांसी, खांसी में बलगम या खून आना, सीने में दर्द, अचानक वजन कम होना, रात में पसीना आना और शाम को हल्का बुखार होना।"
+      ],
+      causes: [
+        "Mycobacterium tuberculosis bacteria spread through tiny droplets released into the air via coughs or sneezes of an infected person.",
+        "టిబి సోకిన వ్యక్తి దగ్గినప్పుడు లేదా తుమ్మినప్పుడు గాలి ద్వారా వెలువడే మైకోబాక్టీరియం ట్యూబర్‌క్యులోసిస్ అనే బ్యాక్టీరియా వల్ల వ్యాపిస్తుంది.",
+        "माइकोबैक्टीरियम ट्यूबरकुलोसिस बैक्टीरिया, जो संक्रमित व्यक्ति के खांसने या छींकने पर हवा में निकलने वाले सूक्ष्म कणों से फैलता है।"
+      ],
+      prevention: [
+        "Ensure BCG vaccination in infants, maintain proper room ventilation, wear masks in healthcare or crowded settings, and cover mouth while coughing.",
+        "పిల్లలకు సరైన సమయంలో బిసిజి (BCG) టీకా వేయించండి, ఇంట్లో గాలి వెలుతురు ధారాళంగా ఉండేలా చూడండి, రద్దీ ప్రదేశాలలో మాస్క్ వాడండి మరియు దగ్గినప్పుడు రుమాలు అడ్డు పెట్టుకోండి.",
+        "शिशुओं को बीसीजी (BCG) का टीका लगवाएं, घरों में हवा का अच्छा वेंटिलेशन रखें, भीड़भाड़ वाली जगहों पर मास्क पहनें और खांसते समय मुंह ढकें।"
+      ],
+      treatment: [
+        "Take prescribed antibiotics (DOTS therapy) consistently for 6 to 9 months without skipping a single dose, along with a protein-rich balanced diet.",
+        "వైద్యులు సూచించిన యాంటీబయాటిక్స్ (DOTS థెరపీ) మందులను ఒక్క రోజు కూడా మానకుండా 6 నుండి 9 నెలల పాటు పూర్తిగా వాడండి మరియు ప్రొటీన్లు ఉన్న పౌష్టికాహారం తీసుకోండి.",
+        "डॉक्टर द्वारा निर्धारित एंटीबायोटिक दवाएं (डॉट्स थेरेपी) 6 से 9 महीने तक बिना छोड़े नियमित लें और प्रोटीन युक्त पौष्टिक आहार का सेवन करें।"
+      ],
+      doctor: [
+        "Consult a pulmonologist or visit a government TB center immediately if cough lasts beyond 2 to 3 weeks, if you cough up blood, or experience sudden severe night sweats and unexplained weight loss.",
+        "2 నుండి 3 వారాలకు మించి దగ్గు తగ్గకపోయినా, దగ్గులో రక్తం పడినా, రాత్రిపూట తీవ్రమైన చెమటలు మరియు వేగంగా బరువు తగ్గుతున్నట్లు గమనిస్తే వెంటనే వైద్యుడిని లేదా సమీప ప్రభుత్వ టిబి కేంద్రాన్ని సంప్రదించండి.",
+        "यदि खांसी 2 से 3 सप्ताह से अधिक समय तक बनी रहे, खांसी में खून आए, या रात में पसीना और तेजी से वजन गिर रहा हो तो तुरंत डॉक्टर या सरकारी टीबी केंद्र से संपर्क करें।"
+      ]
+    }
+  },
+
+{
+    id: "typhoid", emoji: "🦠",
+    category: "infectious",
+    name: ["Typhoid", "టైఫాయిడ్", "टाइफाइड"],
+    desc: [
+      "Learn about typhoid transmission, clean water, and recovery.",
+      "టైఫాయిడ్ లక్షణాలు, కలుషిత నీటి నివారణ మరియు చికిత్స గురించి తెలుసుకోండి.",
+      "टाइफाइड के लक्षण, दूषित पानी से बचाव और उपचार को समझें।"
+    ],
+    info: [
+      "Typhoid fever is a life-threatening bacterial infection caused by Salmonella Typhi.\n\nCommon symptoms: Prolonged high fever, severe stomach pain, headache, and weakness.",
+      "టైఫాయిడ్ అనేది సాల్మొనెల్లా టైఫీ అనే బ్యాక్టీరియా వల్ల వచ్చే తీవ్రమైన అంటువ్యాధి.\n\nలక్షణాలు: క్రమంగా పెరిగే తీవ్ర జ్వరం, తీవ్రమైన కడుపు నొప్పి, తలనొప్పి మరియు నీరసం.",
+      "टाइफाइड साल्मोनेला टाइफी बैक्टीरिया के कारण होने वाला एक गंभीर संक्रमण है।\n\nलक्षण: लगातार तेज बुखार, पेट में दर्द, सिरदर्द और अत्यधिक कमजोरी।"
+    ],
+    details: {
+      symptoms: [
+        "Persistent high fever that increases daily (step-ladder fever), severe headache, stomach ache, loss of appetite, constipation or diarrhea, and weakness.",
+        "రోజురోజుకూ క్రమంగా పెరిగే తీవ్ర జ్వరం, తీవ్ర తలనొప్పి, కడుపు నొప్పి, ఆకలి మందగించడం, మలబద్ధకం లేదా విరేచనాలు మరియు తీవ్ర అలసట.",
+        "लगातार तेज बुखार जो दिन-ब-दिन बढ़ता है, तेज सिरदर्द, पेट दर्द, भूख न लगना, कब्ज या दस्त और कमजोरी।"
+      ],
+      causes: [
+        "Ingestion of food or drinking water contaminated with Salmonella Typhi bacteria, often spread through poor sanitation or unwashed hands.",
+        "సాల్మొనెల్లా టైఫీ బ్యాక్టీరియా ఉన్న కలుషితమైన నీరు లేదా ఆహారాన్ని తీసుకోవడం మరియు అపరిశుభ్రమైన చేతులతో ఆహారం ముట్టుకోవడం ద్వారా వ్యాపిస్తుంది.",
+        "साल्मोनेला टाइफी बैक्टीरिया से दूषित भोजन या पानी का सेवन करना तथा अस्वच्छता के कारण इसका फैलना।"
+      ],
+      prevention: [
+        "Drink boiled or purified water, eat freshly cooked hot food, wash hands thoroughly before eating, avoid raw street food, and take the typhoid vaccine.",
+        "బాగా కాచి చల్లార్చిన లేదా శుద్ధి చేసిన నీటినే తాగండి, తాజాగా వండిన వేడి ఆహారాన్ని తినండి, తినేముందు చేతులు శుభ్రంగా కడుక్కోండి, రోడ్డు పక్కన పచ్చి ఆహారాన్ని నివారించండి మరియు టైఫాయిడ్ వ్యాక్సిన్ తీసుకోండి.",
+        "उबला हुआ या शुद्ध पानी पिएं, ताजा गर्म खाना खाएं, खाने से पहले हाथ अच्छी तरह धोएं, खुले में बिकने वाले भोजन से बचें और टाइफाइड का टीका लगवाएं।"
+      ],
+      treatment: [
+        "Complete the full course of doctor-prescribed antibiotics strictly after Widal/blood culture tests, drink plenty of fluids and ORS, and take light, easy-to-digest meals.",
+        "వైడాల్ లేదా రక్త పరీక్ష తర్వాత వైద్యులు సూచించిన యాంటీబయాటిక్స్ కోర్సును పూర్తిగా వాడండి, ఓఆర్ఎస్ (ORS) మరియు ద్రవపదార్థాలు ఎక్కువగా తాగండి, సులభంగా జీర్ణమయ్యే తేలికపాటి ఆహారం తీసుకోండి.",
+        "रक्त जांच के बाद डॉक्टर द्वारा दी गई एंटीबायोटिक दवाओं का पूरा कोर्स करें, ओआरएस (ORS) और तरल पदार्थों का अधिक सेवन करें तथा सुपाच्य हल्का भोजन लें।"
+      ],
+      doctor: [
+        "Consult a physician immediately if fever does not subside after 3 to 4 days, if there is severe abdominal swelling/pain, continuous vomiting, or extreme delirium.",
+        "3 నుండి 4 రోజులైనా జ్వరం తగ్గకపోయినా, తీవ్రమైన కడుపు నొప్పి లేదా ఉబ్బరం, ఆగకుండా వాంతులు లేదా రోగి స్పృహ తప్పుతున్నట్లు అనిపిస్తే వెంటనే ఆసుపత్రికి వెళ్ళండి.",
+        "यदि 3-4 दिनों तक तेज बुखार न उतरे, पेट में तेज दर्द या सूजन हो, लगातार उल्टी हो या अत्यधिक कमजोरी व भ्रम महसूस हो तो तुरंत डॉक्टर से मिलें।"
+      ]
+    }
+  },
+
+{
+    id: "chickenpox", emoji: "🫧",
+    category: "infectious",
+    name: ["Chickenpox", "ఆటలమ్మ (చికెన్ పాక్స్)", "चेचक (चिकनपॉक्स)"],
+    desc: [
+      "Learn about chickenpox rash, itching relief, and recovery.",
+      "ఆటలమ్మ దద్దుర్లు, దురద నివారణ మరియు సంరక్షణ గురించి తెలుసుకోండి.",
+      "चिकनपॉक्स के दाने, खुजली से राहत और देखभाल को समझें।"
+    ],
+    info: [
+      "Chickenpox is a highly contagious viral infection causing an itchy blister-like rash.\n\nCommon symptoms: Red itchy spots, fluid-filled blisters, mild fever, and tiredness.",
+      "ఆటలమ్మ అనేది దురదతో కూడిన పొక్కులు మరియు దద్దుర్లు కలిగించే తీవ్రమైన అంటువ్యాధి.\n\nలక్షణాలు: ఎర్రటి దద్దుర్లు, నీటి పొక్కులు, తేలికపాటి జ్వరం మరియు నీరసం.",
+      "चिकनपॉक्स एक अत्यधिक संक्रामक वायरल बीमारी है जिससे त्वचा पर खुजलीदार छाले और दाने हो जाते हैं।\n\nलक्षण: लाल दाने, पानी से भरे छाले, हल्का बुखार और थकान।"
+    ],
+    details: {
+      symptoms: [
+        "Itchy fluid-filled blisters across the body, moderate fever, loss of appetite, headache, and severe fatigue.",
+        "శరీరమంతా దురదతో కూడిన నీటి పొక్కులు రావడం, మోస్తరు జ్వరం, ఆకలి లేకపోవడం, తలనొప్పి మరియు తీవ్రమైన అలసట.",
+        "शरीर पर खुजली वाले पानी भरे छाले, हल्का से मध्यम बुखार, भूख न लगना, सिरदर्द और थकान।"
+      ],
+      causes: [
+        "Varicella-zoster virus (VZV) spread through direct contact with blisters or inhaling airborne droplets from an infected person.",
+        "వరిసెల్లా-జోస్టర్ వైరస్ (VZV); రోగి పొక్కులను తాకడం లేదా దగ్గినప్పుడు/తుమ్మినప్పుడు గాలి ద్వారా వెలువడే తుంపర్ల వల్ల వ్యాపిస్తుంది.",
+        "वेरिसेला-जोस्टर वायरस (VZV), जो संक्रमित व्यक्ति के छालों को छूने या खांसने-छींकने से हवा में फैलता है।"
+      ],
+      prevention: [
+        "Get vaccinated with the varicella vaccine, isolate the infected person until all blisters form scabs, and wash hands frequently.",
+        "వరిసెల్లా వ్యాక్సిన్ (టీకా) వేయించుకోండి, పొక్కులన్నీ పూర్తిగా ఎండిపోయే వరకు రోగిని వేరుగా (ఐసోలేషన్) ఉంచండి మరియు చేతులను పరిశుభ్రంగా ఉంచుకోండి.",
+        "वेरिसेला का टीका (वैक्सीन) लगवाएं, सभी छालों के सूखने तक मरीज को अलग कमरे में रखें और हाथ बार-बार धोएं।"
+      ],
+      treatment: [
+        "Apply calamine lotion to soothe itching, trim fingernails to prevent scratching, take lukewarm baths with neem leaves or baking soda, and drink plenty of fluids.",
+        "దురద తగ్గడానికి కాలమైన్ లోషన్ రాయండి, గోళ్ళతో గిల్లకూడదు (గోళ్ళు కత్తిరించుకోండి), వేపాకు వేసిన గోరువెచ్చని నీటితో స్నానం చేయండి మరియు ద్రవాలు ఎక్కువగా తాగండి.",
+        "खुजली कम करने के लिए कैलामाइन लोशन लगाएं, नाखून काट कर रखें ताकि खरोंच न लगे, नीम के पानी से स्नान करें और खूब पानी पिएं।"
+      ],
+      doctor: [
+        "Consult a doctor immediately if blisters spread to the eyes, rash becomes extremely red, warm or swollen (bacterial infection), or if breathing problems or severe drowsiness occur.",
+        "పొక్కులు కళ్ళకు పాకినా, చర్మంపై ఎరుపుదనం పెరిగి చీము పట్టినా, శ్వాస తీసుకోవడంలో ఇబ్బంది లేదా రోగి అపస్మారక స్థితిలోకి వెళ్తున్నట్లు అనిపిస్తే వెంటనే వైద్యుడిని సంప్రదించండి.",
+        "यदि दाने आंखों तक फैल जाएं, त्वचा में तेज सूजन या मवाद आ जाए, सांस लेने में तकलीफ हो या अत्यधिक सुस्ती आए तो तुरंत डॉक्टर को दिखाएं।"
+      ]
+    }
+  },
+
+{
+    id: "pneumonia", emoji: "🫁",
+    category: "infectious",
+    name: ["Pneumonia", "న్యుమోనియా", "निमोनिया"],
+    desc: [
+      "Learn about lung infection, breathing symptoms, and medical care.",
+      "ఊపిరితిత్తుల ఇన్ఫెక్షన్, శ్వాస సమస్యల లక్షణాలు మరియు వైద్య చికిత్స గురించి తెలుసుకోండి.",
+      "फेफड़ों के संक्रमण, सांस की तकलीफ और चिकित्सकीय देखभाल को समझें।"
+    ],
+    info: [
+      "Pneumonia is an infection that inflames the air sacs in one or both lungs, which may fill with fluid or pus.\n\nCommon symptoms: High fever, chest pain when breathing, and a wet cough with phlegm.",
+      "న్యుమోనియా అనేది ఊపిరితిత్తులలోని గాలి తిత్తులలో చీము లేదా ద్రవం చేరి వాపు కలిగించే తీవ్రమైన ఇన్ఫెక్షన్.\n\nలక్షణాలు: తీవ్ర జ్వరం, శ్వాస తీసుకున్నప్పుడు ఛాతీ నొప్పి మరియు కఫంతో కూడిన దగ్గు.",
+      "निमोनिया फेफड़ों का एक गंभीर संक्रमण है जिसमें वायु थैलियों में सूजन आ जाती है और उनमें मवाद या तरल पदार्थ भर सकता है।\n\nलक्षण: तेज बुखार, सांस लेते समय सीने में दर्द और बलगम वाली खांसी।"
+    ],
+    details: {
+      symptoms: [
+        "Cough producing green, yellow, or bloody phlegm, high fever with shaking chills, sharp chest pain when breathing or coughing, rapid shallow breathing, and extreme fatigue.",
+        "ఆకుపచ్చ లేదా పసుపు రంగు కఫంతో కూడిన దగ్గు, వణుకుతో వచ్చే తీవ్ర జ్వరం, శ్వాస పీల్చినప్పుడు ఛాతీలో సూదులతో గుచ్చినట్లు నొప్పి, వేగంగా శ్వాస తీసుకోవడం మరియు తీవ్ర అలసట.",
+        "पीले, हरे या खून युक्त बलगम वाली खांसी, कंपकंपी के साथ तेज बुखार, सांस लेते समय सीने में तेज चुभन वाला दर्द, तेज-तेज सांस लेना और अत्यधिक थकान।"
+      ],
+      causes: [
+        "Bacterial infections (primarily Streptococcus pneumoniae), viruses (like Flu or RSV), or fungal pathogens that enter the respiratory tract.",
+        "బాక్టీరియా (ముఖ్యంగా స్ట్రెప్టోకోకస్ న్యుమోనియే), వైరస్‌లు (ఫ్లూ లేదా RSV) లేదా ఫంగల్ ఇన్ఫెక్షన్లు ఊపిరితిత్తుల్లో చేరడం.",
+        "बैक्टीरिया (मुख्यतः स्ट्रेप्टोकोकस न्यूमोनिया), वायरस (फ्लू आदि) या फंगल संक्रमण जो श्वसन तंत्र के माध्यम से फेफड़ों में पहुंचते हैं।"
+      ],
+      prevention: [
+        "Get vaccinated (Pneumococcal and Flu vaccines), practice strict hand hygiene, avoid smoking to keep lungs resilient, and boost immunity.",
+        "న్యుమోకోకల్ మరియు ఫ్లూ వ్యాక్సిన్లు వేయించుకోండి, చేతులను శుభ్రంగా కడుక్కోండి, పొగత్రాగడం పూర్తిగా నివారించండి మరియు రోగనిరోధక శక్తిని పెంచుకోండి.",
+        "न्यूमोकोकल और फ्लू का टीका लगवाएं, हाथों की नियमित स्वच्छता रखें, फेफड़ों को स्वस्थ रखने के लिए धूम्रपान न करें और रोग प्रतिरोधक क्षमता बढ़ाएं।"
+      ],
+      treatment: [
+        "Complete doctor-prescribed antibiotics or antivirals fully, use pulse oximeters to monitor blood oxygen, get absolute bed rest, and drink plenty of warm fluids.",
+        "వైద్యులు సూచించిన యాంటీబయాటిక్స్ కోర్సును పూర్తిగా వాడండి, పల్స్ ఆక్సిమీటర్‌తో ఆక్సిజన్ స్థాయిలను గమనించండి, పూర్తి విశ్రాంతి తీసుకోండి మరియు వేడి ద్రవాలు తాగండి.",
+        "डॉक्टर द्वारा निर्धारित एंटीबायोटिक दवाओं का पूरा कोर्स करें, ऑक्सीमीटर से ऑक्सीजन के स्तर की निगरानी करें, पूरा आराम करें और गर्म तरल पदार्थ पिएं।"
+      ],
+      doctor: [
+        "Seek emergency hospitalization immediately if oxygen levels drop below 94%, breathing becomes rapid and difficult, lips turn bluish, or persistent high fever causes confusion.",
+        "రక్తంలో ఆక్సిజన్ స్థాయిలు 94% కంటే తగ్గినా, శ్వాస తీసుకోవడం తీవ్రంగా కష్టమైనా, పెదవులు లేదా గోళ్లు నీలిరంగులోకి మారినా, విపరీతమైన జ్వరంతో రోగి తికమకపడుతున్నా వెంటనే ఆసుపత్రికి తరలించండి.",
+        "यदि ऑक्सीजन का स्तर 94% से नीचे आ जाए, सांस लेने में बहुत कठिनाई हो, होंठ या नाखून नीले पड़ने लगें, या तेज बुखार के कारण भ्रम हो तो तुरंत अस्पताल जाएं।"
+      ]
+    }
+  },
+
+{
+    id: "kidney-disease", emoji: "🫘",
+    category: "chronic",
+    name: ["Kidney Disease", "కిడ్నీ వ్యాధి", "गुर्दे की बीमारी"],
+    desc: [
+      "Understand kidney function, fluid balance, and kidney health.",
+      "కిడ్నీల పనితీరు, శరీరంలో నీటి నిల్వలు మరియు సంరక్షణ పద్ధతుల గురించి తెలుసుకోండి.",
+      "गुर्दे (किडनी) की कार्यप्रणाली, द्रव संतुलन और स्वास्थ्य देखभाल को समझें।"
+    ],
+    info: [
+      "Kidney disease means kidneys are damaged and cannot filter blood the way they should, leading to waste buildup in the body.\n\nCommon symptoms: Swelling in ankles and feet, fatigue, and changes in urination.",
+      "కిడ్నీ వ్యాధి అంటే మూత్రపిండాలు దెబ్బతిని రక్తాన్ని సరిగ్గా వడకట్టలేకపోవడం, దీనివల్ల శరీరంలో వ్యర్థాలు పేరుకుపోతాయి.\n\nలక్షణాలు: కాళ్ళు, చీలమండలాల్లో వాపు, తీవ్రమైన నీరసం మరియు మూత్రవిసర్జనలో మార్పులు.",
+      "गुर्दे की बीमारी का अर्थ है कि गुर्दे क्षतिग्रस्त हो गए हैं और वे रक्त को ठीक से फिल्टर नहीं कर पा रहे हैं, जिससे शरीर में अपशिष्ट जमा होने लगता है।\n\nलक्षण: टखनों और पैरों में सूजन, थकान और पेशाब में बदलाव।"
+    ],
+    details: {
+      symptoms: [
+        "Swelling in feet, ankles, hands or face (edema), persistent fatigue, foamy or bloody urine, frequent urination at night, dry and itchy skin, and metallic taste in mouth.",
+        "కాళ్ళు, చీలమండలాలు, ముఖంలో వాపు రావడం, నిరంతర అలసట, నురుగు లేదా రక్తంతో కూడిన మూత్రం, రాత్రిపూట ఎక్కువసార్లు మూత్రవిసర్జన, చర్మం పొడిబారి దురద పెట్టడం మరియు నోటిలో లోహపు రుచి అనిపించడం.",
+        "पैरों, टखनों और चेहरे पर सूजन, लगातार अत्यधिक थकान, झागदार या खूनी पेशाब, रात में बार-बार पेशाब आना, त्वचा में खुजली और मुंह में धात्विक स्वाद।"
+      ],
+      causes: [
+        "Uncontrolled high blood pressure, diabetes, glomerulonephritis, overuse of painkiller medications (NSAIDs), and genetic kidney disorders.",
+        "అదుపులో లేని అధిక రక్తపోటు (బీపీ), మధుమేహం (షుగర్), గ్లోమెరులోనెఫ్రైటిస్, పెయిన్ కిల్లర్ మందులను అధికంగా వాడటం మరియు జన్యుపరమైన సమస్యలు.",
+        "अनियंत्रित उच्च रक्तचाप (हाई बीपी), मधुमेह (डायबिटीज), दर्द निवारक दवाओं (पेनकिलर्स) का अत्यधिक उपयोग और आनुवंशिक कारण।"
+      ],
+      prevention: [
+        "Keep blood sugar and blood pressure strictly in normal range, drink adequate clean water, limit salt and processed food intake, and avoid taking painkillers without a prescription.",
+        "షుగర్ మరియు బీపీని ఖచ్చితమైన నియంత్రణలో ఉంచుకోండి, సరిపడా మంచి నీరు తాగండి, ఉప్పు మరియు ప్రాసెస్ చేసిన ఆహారాన్ని తగ్గించండి మరియు డాక్టర్ సలహా లేకుండా పెయిన్ కిల్లర్స్ వాడకండి.",
+        "ब्लड शुगर और ब्लड प्रेशर को नियंत्रित रखें, पर्याप्त पानी पिएं, नमक का सेवन कम करें और बिना डॉक्टर की सलाह के पेनकिलर लेने से बचें।"
+      ],
+      treatment: [
+        "Follow a low-sodium, low-protein kidney-friendly diet prescribed by a nephrologist, strictly manage blood pressure, and undergo dialysis or kidney transplant in advanced stages.",
+        "నెఫ్రాలజిస్ట్ (కిడ్నీ నిపుణుల) సలహా మేరకు ఉప్పు, ప్రొటీన్ తక్కువగా ఉండే ఆహారం తీసుకోవడం, బీపీ మందులను సరిగ్గా వాడటం మరియు చివరి దశల్లో డయాలసిస్ లేదా కిడ్నీ మార్పిడి చికిత్సలు ఉంటాయి.",
+        "किडनी विशेषज्ञ की सलाह पर कम नमक और सीमित प्रोटीन वाला आहार लें, दवाओं से बीपी नियंत्रित रखें तथा गंभीर स्थिति में डायलिसिस या ट्रांसप्लांट करवाएं।"
+      ],
+      doctor: [
+        "Consult a nephrologist immediately if you notice sudden severe swelling in legs or face, significant drop or complete stop in urine output, extreme breathlessness, or blood in urine.",
+        "కాళ్ళు లేదా ముఖంలో తీవ్రమైన వాపు కనిపించినా, మూత్ర విసర్జన బాగా తగ్గిపోయినా లేదా పూర్తిగా ఆగిపోయినా, తీవ్రమైన ఆయాసం లేదా మూత్రంలో రక్తం పడితే వెంటనే కిడ్నీ నిపుణుడిని సంప్రదించండి.",
+        "यदि पैरों या चेहरे पर अचानक तेज सूजन दिखे, पेशाब की मात्रा बहुत कम हो जाए या पूरी तरह बंद हो जाए, सांस फूलने लगे या पेशाब में खून आए तो तुरंत विशेषज्ञ से मिलें।"
+      ]
+    }
+  },
+
+{
+    id: "anemia", emoji: "🩸",
+    category: "other",
+    name: ["Anemia", "రక్తహీనత", "एनीमिया (खून की कमी)"],
+    desc: [
+      "Understand low hemoglobin, iron-rich diet, and energy levels.",
+      "తక్కువ హిమోగ్లోబిన్, ఐరన్ ఆహార నియమాలు మరియు శక్తి స్థాయిల గురించి తెలుసుకోండి.",
+      "कम हीमोग्लोबिन, आयरन युक्त आहार और ऊर्जा के स्तर को समझें।"
+    ],
+    info: [
+      "Anemia is a condition in which blood lacks enough healthy red blood cells or hemoglobin to carry oxygen to tissues.\n\nCommon symptoms: Extreme fatigue, pale skin, weakness, and dizziness.",
+      "రక్తహీనత అనేది శరీర కణజాలాలకు ఆక్సిజన్‌ను సరఫరా చేయడానికి తగినన్ని ఆరోగ్యకరమైన ఎర్ర రక్త కణాలు లేదా హిమోగ్లోబిన్ లేకపోవడం వల్ల వచ్చే సమస్య.\n\nలక్షణాలు: విపరీతమైన అలసట, పాలిపోయిన చర్మం, నీరసం మరియు కళ్ళు తిరగడం.",
+      "एनीमिया एक ऐसी स्थिति है जिसमें शरीर के ऊतकों तक ऑक्सीजन ले जाने के लिए पर्याप्त स्वस्थ लाल रक्त कोशिकाएं या हीमोग्लोबिन नहीं होते हैं।\n\nलक्षण: अत्यधिक थकान, पीली त्वचा, कमजोरी और चक्कर आना।"
+    ],
+    details: {
+      symptoms: [
+        "Constant tiredness and weakness, pale or yellowish skin, cold hands and feet, shortness of breath on exertion, brittle nails, and dizziness.",
+        "నిరంతర అలసట మరియు నీరసం, పాలిపోయిన చర్మం లేదా గోళ్ళు, చేతులు మరియు కాళ్ళు చల్లగా మారడం, కొద్దిపాటి నడకకే ఆయాసం రావడం మరియు కళ్ళు తిరగడం.",
+        "लगातार थकान और कमजोरी, त्वचा का पीला पड़ना, हाथ-पैर ठंडे रहना, हल्का काम करने पर भी सांस फूलना और चक्कर आना।"
+      ],
+      causes: [
+        "Iron deficiency from poor diet, heavy menstrual bleeding, internal blood loss (ulcers), vitamin B12 or folate deficiency, and chronic illnesses.",
+        "ఆహారంలో ఐరన్ లోపం, మహిళల్లో అధిక రుతుస్రావం, అంతర్గత రక్తస్రావం (అల్సర్లు), విటమిన్ B12 లోపం మరియు దీర్ఘకాలిక అనారోగ్యాలు.",
+        "भोजन में आयरन की कमी, महिलाओं में अत्यधिक मासिक धर्म, आंतरिक रक्तस्राव (अल्सर), विटामिन बी12 की कमी और पुरानी बीमारियां।"
+      ],
+      prevention: [
+        "Eat iron-rich foods like green leafy vegetables, dates, pomegranates, beetroot, and jaggery; consume vitamin C (citrus fruits) to improve iron absorption.",
+        "పాలకూర వంటి ఆకుకూరలు, ఖర్జూరాలు, దానిమ్మ, బీట్‌రూట్, బెల్లం వంటి ఐరన్ ఎక్కువగా ఉండే ఆహారాలు తీసుకోండి; ఐరన్ ఒంటపట్టడానికి నిమ్మకాయ, నారింజ వంటి విటమిన్-సి ఆహారాలు కలపండి.",
+        "पालक, हरी पत्तेदार सब्जियां, खजूर, अनार, चुकंदर और गुड़ जैसे आयरन युक्त खाद्य पदार्थ खाएं; आयरन के अवशोषण के लिए विटामिन सी (नींबू, संतरा) का सेवन करें।"
+      ],
+      treatment: [
+        "Take iron and folic acid supplements strictly as prescribed by a physician, maintain a balanced nutritional diet, and treat underlying bleeding causes.",
+        "వైద్యులు సూచించిన ఐరన్ మరియు ఫోలిక్ యాసిడ్ మాత్రలను సరైన సమయానికి తీసుకోండి, పౌష్టికాహారం అలవాటు చేసుకోండి మరియు రక్తస్రావానికి మూలకారణాన్ని గుర్తించి చికిత్స తీసుకోండి.",
+        "डॉक्टर द्वारा बताए गए आयरन और फोलिक एसिड सप्लीमेंट्स नियमित लें, पौष्टिक आहार बनाए रखें और खून की कमी के मुख्य कारण का इलाज करवाएं।"
+      ],
+      doctor: [
+        "Consult a doctor immediately if you experience severe shortness of breath during routine activities, chest pain, rapid heart palpitations, or unexplained fainting episodes.",
+        "చిన్న పనులకే తీవ్రమైన ఆయాసం రావడం, ఛాతీలో నొప్పి, గుండె దడ వేగంగా కొట్టుకోవడం లేదా కళ్ళు తిరిగి పడిపోవడం వంటి లక్షణాలు ఉంటే వెంటనే వైద్యుడిని సంప్రదించండి.",
+        "यदि सामान्य काम करने पर भी बहुत अधिक सांस फूले, सीने में दर्द हो, दिल की धड़कन तेज हो जाए या अचानक चक्कर खाकर गिर पड़ें तो तुरंत डॉक्टर से मिलें।"
+      ]
+    }
+  },
+
+{
+    id: "arthritis", emoji: "🦴",
+    category: "chronic",
+    name: ["Arthritis", "కీళ్లవాతం (ఆర్థరైటిస్)", "गठिया (अर्थराइटिस)"],
+    desc: [
+      "Understand joint pain, stiffness, inflammation, and mobility care.",
+      "కీళ్ల నొప్పులు, బిగుతుదనం, వాపు మరియు కదలికల సంరక్షణ గురించి తెలుసుకోండి.",
+      "जोड़ों के दर्द, जकड़न, सूजन और गतिशीलता की देखभाल को समझें।"
+    ],
+    info: [
+      "Arthritis is the swelling and tenderness of one or more joints, causing pain and stiffness that worsens with age.\n\nCommon symptoms: Joint pain, swelling, morning stiffness, and reduced range of motion.",
+      "కీళ్లవాతం అనేది ఒకటి లేదా అంతకంటే ఎక్కువ కీళ్లలో వాపు మరియు నొప్పిని కలిగించే దీర్ఘకాలిక సమస్య.\n\nలక్షణాలు: కీళ్ల నొప్పి, వాపు, ఉదయాన్నే కీళ్ళు బిగుసుకుపోవడం మరియు నడవడంలో ఇబ్బంది.",
+      "गठिया एक या अधिक जोड़ों में सूजन और दर्द की स्थिति है, जिससे जोड़ों में दर्द और अकड़न होती है।\n\nलक्षण: जोड़ों का दर्द, सूजन, सुबह जोड़ों में जकड़न और चलने-फिरने में परेशानी।"
+    ],
+    details: {
+      symptoms: [
+        "Persistent joint pain and tenderness, swelling around joints, morning stiffness lasting over 30 minutes, and warmth in affected joints.",
+        "నిరంతర కీళ్ల నొప్పి, కీళ్ల చుట్టూ వాపు, ఉదయం నిద్రలేవగానే అరగంటకు పైగా కీళ్ళు పట్టేసినట్లు ఉండటం మరియు కీళ్ల వద్ద వేడిగా అనిపించడం.",
+        "जोड़ों में लगातार दर्द और संवेदनशीलता, जोड़ों के आसपास सूजन, सुबह के समय 30 मिनट से अधिक जकड़न और प्रभावित जोड़ों में गर्माहट।"
+      ],
+      causes: [
+        "Cartilage wear and tear due to aging (Osteoarthritis), autoimmune attacks on joint lining (Rheumatoid arthritis), high uric acid levels (Gout), or previous joint injuries.",
+        "వయసు పైబడటం వల్ల మృదులాస్థి (కార్టిలేజ్) అరిగిపోవడం (ఆస్టియో ఆర్థరైటిస్), రోగనిరోధక వ్యవస్థ కీళ్ల పొరలపై దాడి చేయడం (రుమటాయిడ్ ఆర్థరైటిస్), యూరిక్ యాసిడ్ పెరగడం (గౌట్) లేదా పాత గాయాలు.",
+        "उम्र बढ़ने के साथ कार्टिलेज का घिसना (ऑस्टियोआर्थराइटिस), ऑटोइम्यून कारण (रूमेटाइड अर्थराइटिस), यूरिक एसिड का बढ़ना (गाउट) या पुरानी चोटें।"
+      ],
+      prevention: [
+        "Maintain a healthy body weight to reduce pressure on knees and hips, do low-impact exercises (swimming, walking), avoid repetitive joint strain, and eat omega-3 rich anti-inflammatory foods.",
+        "మోకాళ్లు మరియు తుంటిపై ఒత్తిడి తగ్గడానికి బరువును నియంత్రణలో ఉంచుకోండి, నడక లేదా ఈత వంటి తేలికపాటి వ్యాయామాలు చేయండి మరియు ఒమేగా-3 ఉన్న సమతులాహారం తీసుకోండి.",
+        "घुटनों और जोड़ों पर दबाव कम करने के लिए वजन नियंत्रित रखें, हल्का व्यायाम (टहलना, तैराकी) करें और एंटी-इंफ्लेमेटरी पौष्टिक आहार लें।"
+      ],
+      treatment: [
+        "Follow doctor-prescribed anti-inflammatory medications, undergo physical therapy exercises, apply hot/cold packs for relief, and use supportive braces if needed.",
+        "వైద్యులు సూచించిన వాపు నివారణ మందులను వాడండి, ఫిజియోథెరపీ వ్యాయామాలు చేయండి, ఉపశమనం కోసం వేడి లేదా చల్లటి కాపడం పెట్టండి మరియు అవసరమైతే నీ-క్యాప్స్ వంటి సపోర్ట్ వాడండి.",
+        "डॉक्टर द्वारा दी गई दवाएं नियमित लें, फिजियोथेरेपी व्यायाम करें, दर्द से राहत के लिए गर्म या ठंडी सिकाई करें और जरूरत पड़ने पर सपोर्ट ब्रेस का उपयोग करें।"
+      ],
+      doctor: [
+        "Consult a rheumatologist or orthopedist immediately if joint pain is accompanied by high fever, severe redness and sudden extreme swelling, or inability to move the limb.",
+        "కీళ్ల నొప్పితో పాటు తీవ్రమైన జ్వరం వచ్చినా, కీళ్ళు ఎర్రగా కమిలి విపరీతమైన వాపు కనిపించినా, లేదా కాలు/చేయి కదపడం అస్సలు వీలుకానంత నొప్పి ఉంటే వెంటనే ఆర్థోపెడిక్ లేదా రుమటాలజిస్ట్ వైద్యుడిని సంప్రదించండి.",
+        "यदि जोड़ों के दर्द के साथ तेज बुखार हो, जोड़ अचानक अत्यधिक लाल और सूज जाएं, या अंग को हिलाना बिल्कुल असंभव हो जाए तो तुरंत हड्डी रोग विशेषज्ञ (डॉक्टर) से संपर्क करें।"
+      ]
+    }
+  },
+
+{
+    id: "migraine", emoji: "⚡",
+    category: "other",
+    name: ["Migraine", "మైగ్రేన్ (పార్శ్వపు నొప్పి)", "माइग्रेन (आधासीसी)"],
+    desc: [
+      "Understand migraine triggers, aura, and pain relief tips.",
+      "మైగ్రేన్ ప్రేరేపకాలు, లక్షణాలు మరియు ఉపశమన పద్ధతుల గురించి తెలుసుకోండి.",
+      "माइग्रेन के ट्रिगर्स, औरा और सिरदर्द से राहत के उपाय समझें।"
+    ],
+    info: [
+      "Migraine is a neurological condition causing intense, throbbing headaches usually on one side of the head.\n\nCommon symptoms: Pulsating pain, nausea, and sensitivity to light and sound.",
+      "మైగ్రేన్ అనేది నాడీ సంబంధిత సమస్య. ఇది సాధారణంగా తలలో ఒక వైపు తీవ్రమైన పోటు లేదా తీవ్ర తలనొప్పిని కలిగిస్తుంది.\n\nలక్షణాలు: తల ఒకవైపు తీవ్రమైన పోటు, వికారం, వాంతులు మరియు కాంతి/శబ్దాలను భరించలేకపోవడం.",
+      "माइग्रेन एक न्यूरोलॉजिकल स्थिति है जो आमतौर पर सिर के एक तरफ तेज, धड़कने जैसा दर्द पैदा करती है।\n\nलक्षण: सिर के एक हिस्से में तेज दर्द, मतली, उल्टी और रोशनी व आवाज के प्रति संवेदनशीलता।"
+    ],
+    details: {
+      symptoms: [
+        "Severe throbbing or pulsing pain on one side of the head, nausea, vomiting, dizziness, visual disturbances (aura), and extreme sensitivity to bright light and loud sounds.",
+        "తల ఒకవైపు మాత్రమే విపరీతమైన పోటు, వికారం, వాంతులు, కళ్ళు తిరగడం, కళ్లముందు మెరుపులు మెరిసినట్లు అనిపించడం (ఆరా), మరియు వెలుతురు/శబ్దాలను అస్సలు తట్టుకోలేకపోవడం.",
+        "सिर के एक तरफ तेज धड़कता हुआ दर्द, मतली, उल्टी, चक्कर आना, आंखों के आगे चमक या धुंधलापन दिखना (औरा) और तेज रोशनी या शोर से अत्यधिक परेशानी।"
+      ],
+      causes: [
+        "Hormonal changes, emotional stress, lack of sleep or irregular sleep cycles, skipping meals, bright lights, loud noises, and strong odors or weather shifts.",
+        "హార్మోన్లలో మార్పులు, తీవ్రమైన మానసిక ఒత్తిడి, నిద్రలేమి, సమయానికి భోజనం చేయకపోవడం, తీవ్రమైన ఎండ/వెలుతురు, భారీ శబ్దాలు మరియు ఘాటైన వాసనలు.",
+        "हार्मोनल बदलाव, अत्यधिक मानसिक तनाव, नींद की कमी या अनियमित दिनचर्या, भोजन छोड़ना, तेज धूप, तेज आवाज और तीखी गंध।"
+      ],
+      prevention: [
+        "Maintain a fixed sleep schedule, avoid skipping meals, stay well hydrated, identify and avoid specific personal triggers, and limit screen time.",
+        "నిర్దిష్ట సమయానికి నిద్రపోవడం, భోజనం మానకుండా సమయానికి తినడం, రోజూ తగినంత నీరు తాగడం, మైగ్రేన్ కలిగించే అంశాలకు దూరంగా ఉండటం మరియు స్క్రీన్ సమయాన్ని తగ్గించడం.",
+        "नियमित समय पर सोने की आदत बनाएं, खाना न छोड़ें, भरपूर पानी पिएं, माइग्रेन शुरू करने वाले कारणों को पहचानकर उनसे बचें और स्क्रीन का समय सीमित करें।"
+      ],
+      treatment: [
+        "Rest in a quiet, dark room, place a cold ice-pack on the forehead or neck, drink water, and take doctor-prescribed migraine medications at the earliest sign of an attack.",
+        "లైట్లు ఆపేసి ప్రశాంతమైన నిశ్శబ్ద గదిలో పడుకోవడం, నుదిటిపై లేదా మెడ వెనుక ఐస్ ప్యాక్ ఉంచడం, మంచినీరు తాగడం మరియు తలనొప్పి మొదలైన వెంటనే వైద్యులు రాసిన మందులు వేసుకోవడం.",
+        "शांत और अंधेरे कमरे में आराम करें, माथे या गर्दन पर आइस पैक (बर्फ की सिकाई) लगाएं, पानी पिएं और दर्द शुरू होते ही डॉक्टर द्वारा दी गई माइग्रेन की दवा लें।"
+      ],
+      doctor: [
+        "Consult a neurologist immediately if you experience an abrupt 'thunderclap' headache, fever with stiff neck, numbness, slurred speech, or vision loss.",
+        "పిడుగు పడినట్లు అకస్మాత్తుగా తీవ్ర తలనొప్పి వచ్చినా, జ్వరంతో పాటు మెడ పట్టేయడం, మాట తడబడటం, ఒకవైపు తిమ్మిరి రావడం లేదా చూపు మందగిస్తే వెంటనే న్యూరాలజిస్ట్‌ను లేదా అత్యవసర విభాగాన్ని సంప్రదించండి.",
+        "यदि अचानक बहुत तेज असहनीय सिरदर्द हो, बुखार के साथ गर्दन में अकड़न आए, बोलने में लड़खड़ाहट, सुन्नता या देखने में परेशानी हो तो तुरंत न्यूरोलॉजिस्ट या अस्पताल जाएं।"
+      ]
+    }
+  },
+
+
+{
+    id: "jaundice",
+    emoji: "💛",
+    category: "infectious",
+
+    name: [
+        "Jaundice",
+        "కామెర్లు",
+        "पीलिया"
+    ],
+
+    desc: [
+        "Learn about jaundice, liver health, symptoms, and medical care.",
+        "కామెర్లు, కాలేయ ఆరోగ్యం, లక్షణాలు మరియు వైద్య చికిత్స గురించి తెలుసుకోండి.",
+        "पीलिया, लिवर स्वास्थ्य, लक्षणों और चिकित्सा देखभाल के बारे में जानें।"
+    ],
+
+    info: [
+        "Jaundice is a condition in which the skin and the whites of the eyes turn yellow due to increased bilirubin in the blood.\n\nCommon symptoms: Yellow eyes and skin, dark urine, pale stools, itching, and weakness.",
+        "రక్తంలో బిలిరుబిన్ అనే పదార్థం పెరగడం వల్ల చర్మం మరియు కళ్ళలోని తెల్లని భాగం పసుపు రంగులోకి మారే పరిస్థితిని కామెర్లు అంటారు.\n\nసాధారణ లక్షణాలు: కళ్ళు మరియు చర్మం పసుపు రంగులోకి మారడం, ముదురు రంగు మూత్రం, లేత రంగు మలం, దురద మరియు నీరసం.",
+        "रक्त में बिलीरुबिन का स्तर बढ़ने से त्वचा और आँखों का सफेद हिस्सा पीला हो जाता है। इस स्थिति को पीलिया कहते हैं।\n\nसामान्य लक्षण: आँखों और त्वचा का पीला होना, गहरे रंग का पेशाब, हल्के रंग का मल, खुजली और कमजोरी।"
+    ],
+
+    details: {
+
+        symptoms: [
+            "Yellowing of the skin and eyes, dark urine, pale stools, itching, and weakness.",
+            "చర్మం మరియు కళ్ళు పసుపు రంగులోకి మారడం, ముదురు రంగు మూత్రం, లేత రంగు మలం, దురద మరియు నీరసం.",
+            "त्वचा और आँखों का पीला होना, गहरे रंग का पेशाब, हल्के रंग का मल, खुजली और कमजोरी।"
+        ],
+
+        causes: [
+            "Jaundice can occur due to hepatitis, liver disease, blocked bile ducts, or increased breakdown of red blood cells.",
+            "హెపటైటిస్, కాలేయ వ్యాధులు, పిత్త నాళాల్లో అడ్డంకులు లేదా ఎర్ర రక్త కణాలు ఎక్కువగా విచ్ఛిన్నం కావడం వల్ల కామెర్లు రావచ్చు.",
+            "हेपेटाइटिस, लिवर की बीमारी, पित्त नलिकाओं में रुकावट या लाल रक्त कोशिकाओं के अधिक टूटने से पीलिया हो सकता है।"
+        ],
+
+        prevention: [
+            "Maintain good hygiene, drink safe water, eat clean food, get recommended hepatitis vaccines, and avoid alcohol.",
+            "వ్యక్తిగత పరిశుభ్రత పాటించండి, శుభ్రమైన నీరు తాగండి, శుభ్రమైన ఆహారం తీసుకోండి, అవసరమైన హెపటైటిస్ టీకాలు వేయించుకోండి మరియు మద్యపానానికి దూరంగా ఉండండి.",
+            "अच्छी स्वच्छता रखें, साफ पानी पिएं, स्वच्छ भोजन करें, जरूरी हेपेटाइटिस टीके लगवाएं और शराब से बचें।"
+        ],
+
+        treatment: [
+            "Treatment depends on the underlying cause. Consult a doctor for blood tests and proper treatment. Avoid self-medication.",
+            "కామెర్లకు కారణాన్ని బట్టి చికిత్స ఉంటుంది. రక్త పరీక్షలు మరియు సరైన చికిత్స కోసం వైద్యుడిని సంప్రదించండి. స్వయంగా మందులు వాడకండి.",
+            "इलाज इसके कारण पर निर्भर करता है। रक्त जांच और उचित उपचार के लिए डॉक्टर से सलाह लें। स्वयं दवाएं न लें।"
+        ],
+
+        doctor: [
+            "Consult a doctor promptly if you notice yellow eyes or skin. Seek urgent medical care for severe abdominal pain, fever, confusion, or unusual bleeding.",
+            "కళ్ళు లేదా చర్మం పసుపు రంగులోకి మారితే వెంటనే వైద్యుడిని సంప్రదించండి. తీవ్రమైన కడుపు నొప్పి, జ్వరం, గందరగోళం లేదా అసాధారణ రక్తస్రావం ఉంటే అత్యవసర వైద్యం పొందండి.",
+            "आँखों या त्वचा में पीलापन दिखने पर जल्द डॉक्टर से मिलें। तेज पेट दर्द, बुखार, भ्रम या असामान्य रक्तस्राव होने पर तुरंत चिकित्सा सहायता लें।"
+        ]
+    },
+
+    keywords: [
+        "jaundice",
+        "liver",
+        "bilirubin",
+        "కామెర్లు",
+        "కాలేయం",
+        "पीलिया",
+        "लिवर"
+    ]
+},
+
+
+
+{
+    id: "ulcer",
+    emoji: "🩺",
+    category: "chronic",
+
+    name: [
+        "Stomach Ulcer",
+        "కడుపులో పుండ్లు",
+        "पेट का अल्सर"
+    ],
+
+    desc: [
+        "Learn about stomach ulcers, causes, symptoms, and treatment.",
+        "కడుపులో పుండ్లు, వాటి కారణాలు, లక్షణాలు మరియు చికిత్స గురించి తెలుసుకోండి.",
+        "पेट के अल्सर, उनके कारणों, लक्षणों और उपचार के बारे में जानें।"
+    ],
+
+    info: [
+        "A stomach ulcer is an open sore that develops in the lining of the stomach. It may cause burning stomach pain, bloating, nausea, and discomfort.",
+        "కడుపు లోపలి పొరపై ఏర్పడే పుండును కడుపులో పుండు అంటారు. దీనివల్ల కడుపులో మంట, ఉబ్బరం, వికారం మరియు అసౌకర్యం కలగవచ్చు.",
+        "पेट की अंदरूनी परत में बनने वाले घाव को पेट का अल्सर कहते हैं। इससे पेट में जलन, पेट फूलना, मतली और परेशानी हो सकती है।"
+    ],
+
+    details: {
+
+        symptoms: [
+            "Burning stomach pain, bloating, nausea, vomiting, and feeling full quickly.",
+            "కడుపులో మంట, ఉబ్బరం, వికారం, వాంతులు మరియు కొద్దిగా తిన్నా కడుపు నిండినట్లు అనిపించడం.",
+            "पेट में जलन, पेट फूलना, मतली, उल्टी और थोड़ा खाने पर ही पेट भरा हुआ महसूस होना।"
+        ],
+
+        causes: [
+            "Stomach ulcers are commonly caused by Helicobacter pylori (H. pylori) infection or long-term use of painkillers such as ibuprofen.",
+            "హెలికోబాక్టర్ పైలోరి (H. pylori) ఇన్ఫెక్షన్ లేదా ఇబుప్రోఫెన్ వంటి నొప్పి నివారణ మందులను ఎక్కువకాలం వాడటం వల్ల కడుపులో పుండ్లు ఏర్పడవచ్చు.",
+            "पेट के अल्सर आमतौर पर हेलिकोबैक्टर पाइलोरी (H. pylori) संक्रमण या इबुप्रोफेन जैसी दर्द निवारक दवाओं के लंबे समय तक उपयोग से होते हैं।"
+        ],
+
+        prevention: [
+            "Wash hands regularly, avoid unnecessary painkillers, avoid smoking, and consult a doctor about H. pylori infection.",
+            "చేతులను శుభ్రంగా కడుక్కోండి, అవసరం లేని నొప్పి నివారణ మందులను వాడకండి, ధూమపానానికి దూరంగా ఉండండి మరియు H. pylori ఇన్ఫెక్షన్ గురించి వైద్యుడిని సంప్రదించండి.",
+            "नियमित रूप से हाथ धोएं, अनावश्यक दर्द निवारक दवाओं से बचें, धूम्रपान न करें और H. pylori संक्रमण के बारे में डॉक्टर से सलाह लें।"
+        ],
+
+        treatment: [
+            "Treatment may include antibiotics for H. pylori and acid-reducing medicines prescribed by a doctor. Avoid self-medication.",
+            "H. pylori ఇన్ఫెక్షన్ ఉంటే యాంటీబయాటిక్స్ మరియు కడుపులో ఆమ్లాన్ని తగ్గించే మందులను వైద్యుడు సూచించవచ్చు. స్వయంగా మందులు వాడకండి.",
+            "इलाज में H. pylori के लिए एंटीबायोटिक्स और पेट का एसिड कम करने वाली डॉक्टर द्वारा दी गई दवाएं शामिल हो सकती हैं। स्वयं दवा न लें।"
+        ],
+
+        doctor: [
+            "Consult a doctor for persistent stomach pain. Seek emergency care if you vomit blood, have black tarry stools, or experience sudden severe abdominal pain.",
+            "కడుపు నొప్పి ఎక్కువకాలం ఉంటే వైద్యుడిని సంప్రదించండి. రక్తపు వాంతులు, నల్లటి మలం లేదా అకస్మాత్తుగా తీవ్రమైన కడుపు నొప్పి వస్తే అత్యవసర వైద్యం పొందండి.",
+            "पेट में लगातार दर्द होने पर डॉक्टर से मिलें। खून की उल्टी, काला मल या अचानक तेज पेट दर्द होने पर तुरंत आपातकालीन चिकित्सा लें।"
+        ]
+    },
+
+    keywords: [
+        "ulcer",
+        "stomach ulcer",
+        "stomach pain",
+        "H pylori",
+        "కడుపులో పుండ్లు",
+        "కడుపు నొప్పి",
+        "पेट का अल्सर",
+        "पेट दर्द"
+    ]
+}
+];
+
+
+
+// CREATE DISEASE CARDS
+let selectedCategory = "all";
+function renderCards() {
+    const lang = document.getElementById("language").value;
+    const cards = document.getElementById("cards");
+const searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+
+    cards.innerHTML = "";
+
+    diseases.filter(disease => {
+
+    const categoryMatch =
+        selectedCategory === "all" ||
+        disease.category === selectedCategory;
+
+    const searchMatch =
+        disease.name.join(" ").toLowerCase().includes(searchText) ||
+        disease.desc.join(" ").toLowerCase().includes(searchText) ||
+        disease.keywords.join(" ").toLowerCase().includes(searchText);
+
+    return categoryMatch && searchMatch;
+
+}).forEach(disease => {
+        const index = lang === "en" ? 0 : lang === "te" ? 1 : 2;
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.id = disease.id;
+
+        const emoji = document.createElement("div");
+        emoji.className = "emoji";
+        emoji.textContent = disease.emoji;
+
+        const title = document.createElement("h3");
+        title.textContent = disease.name[index];
+
+        const description = document.createElement("p");
+        description.textContent = disease.desc[index];
+
+        const button = document.createElement("button");
+        button.textContent = translations[lang].read;
+        button.onclick = () => showInfo(disease.id);
+
+        card.append(emoji, title, description, button);
+        cards.appendChild(card);
+        
+    });
+}
+function filterCategory(category) {
+    selectedCategory = category;
+    renderCards();
+}
+
+
+// CHANGE WEBSITE LANGUAGE
+
+function changeLanguage() {
+    const lang = document.getElementById("language").value;
+    const t = translations[lang];
+
+    document.documentElement.lang = lang;
+
+    document.getElementById("heading").textContent = t.heading;
+    document.getElementById("subtitle").textContent = t.subtitle;
+    document.getElementById("diseaseTitle").textContent = t.diseaseTitle;
+
+    document.getElementById("searchBtn").textContent = t.search;
+    document.getElementById("searchInput").placeholder = t.placeholder;
+
+    document.getElementById("notice").innerHTML = t.notice;
+    document.getElementById("copyright").textContent = t.copyright;
+    document.getElementById("footerText").textContent = t.footer;
+    document.getElementById("closeBtn").textContent = t.close;
+
+    renderCards();
+    searchDisease();
+    closeInfo();
+}
+
+
+// SEARCH DISEASE
+
+function searchDisease() {
+    const query = document.getElementById("searchInput")
+        .value.toLowerCase().trim();
+
+    const lang = document.getElementById("language").value;
+    const index = lang === "en" ? 0 : lang === "te" ? 1 : 2;
+
+    let found = 0;
+
+    diseases.forEach(disease => {
+        const searchText = [
+            ...disease.name,
+            ...disease.keywords,
+            disease.id
+        ].join(" ").toLowerCase();
+
+        const matches = searchText.includes(query);
+
+        const card = document.querySelector(
+            `[data-id="${disease.id}"]`
+        );
+
+        if (card) {
+            card.style.display = matches ? "block" : "none";
+        }
+
+        if (matches) found++;
+    });
+
+    const oldMessage = document.getElementById("noResults");
+    if (oldMessage) oldMessage.remove();
+
+    if (found === 0) {
+        const message = document.createElement("p");
+        message.id = "noResults";
+        message.className = "no-results";
+        message.textContent = translations[lang].noResults;
+        document.getElementById("cards").appendChild(message);
+    }
+}
+
+
+// SHOW DISEASE DETAILS
+
+
+function showInfo(id) {
+
+    const disease = diseases.find(item => item.id === id);
+    if (!disease) return;
+
+    const lang = document.getElementById("language").value;
+    const index = lang === "en" ? 0 : lang === "te" ? 1 : 2;
+
+    const labels = {
+        en: ["Symptoms", "Causes", "Prevention", "Treatment", "When to consult a doctor"],
+        te: ["లక్షణాలు", "కారణాలు", "నివారణ", "చికిత్స", "ఎప్పుడు డాక్టర్‌ను సంప్రదించాలి"],
+        hi: ["लक्षण", "कारण", "बचाव", "उपचार", "डॉक्टर से कब मिलें"]
+    };
+
+    const langLabels = labels[lang] || labels.en;
+
+    document.getElementById("modalTitle").textContent =
+        disease.emoji + " " + disease.name[index];
+
+    const modalText = document.getElementById("modalText");
+
+    if (disease.details) {
+
+        const sections = [
+            "symptoms",
+            "causes",
+            "prevention",
+            "treatment",
+            "doctor"
+        ];
+
+        modalText.innerHTML = "";
+
+        sections.forEach((section, i) => {
+
+            const heading = document.createElement("h3");
+            heading.textContent = langLabels[i];
+
+            const paragraph = document.createElement("p");
+            paragraph.textContent =
+    disease.details[section]?.[index] || "Information coming soon.";
+
+            modalText.appendChild(heading);
+            modalText.appendChild(paragraph);
+
+        });
+
+    } else {
+        modalText.textContent = disease.info[index];
+    }
+
+    document.getElementById("modal").style.display = "flex";
+}
+
+
+
+// CLOSE POPUP
+
+function closeInfo() {
+    document.getElementById("modal").style.display = "none";
+}
+
+
+// CHANGE LANGUAGE WHEN SELECTED
+
+document.getElementById("language").addEventListener(
+    "change",
+    function() {
+        localStorage.setItem("ourHealthLanguage", this.value);
+        changeLanguage();
+    }
+);
+
+
+// SEARCH WHILE TYPING
+
+document.getElementById("searchInput").addEventListener(
+    "input",
+    searchDisease
+);
+
+
+// CLOSE POPUP WHEN CLICKING OUTSIDE
+
+document.getElementById("modal").addEventListener(
+    "click",
+    function(event) {
+        if (event.target === this) {
+            closeInfo();
+        }
+    }
+);
+
+
+// LOAD SAVED LANGUAGE
+
+const savedLanguage = localStorage.getItem("ourHealthLanguage");
+
+if (savedLanguage && translations[savedLanguage]) {
+    document.getElementById("language").value = savedLanguage;
+}
+
+changeLanguage();
+
+</script>
+
+</body>
+</html>
