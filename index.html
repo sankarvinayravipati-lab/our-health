@@ -399,7 +399,7 @@ footer {
 
     <div class="search">
         <input type="text" id="searchInput"
-       oninput="renderCards()"
+       oninput="searchDisease()"
        placeholder="Search diseases...">
         <button id="searchBtn" onclick="searchDisease()"></button>
     </div>
@@ -1382,6 +1382,8 @@ function renderCards() {
     const lang = document.getElementById("language").value;
     const cards = document.getElementById("cards");
 const searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+console.log("Search Text:", searchText);
+console.log("diseases:",diseases.length);
 
     cards.innerHTML = "";
 
@@ -1391,10 +1393,12 @@ const searchText = document.getElementById("searchInput").value.toLowerCase().tr
         selectedCategory === "all" ||
         disease.category === selectedCategory;
 
-    const searchMatch =
-        disease.name.join(" ").toLowerCase().includes(searchText) ||
-        disease.desc.join(" ").toLowerCase().includes(searchText) ||
-        disease.keywords.join(" ").toLowerCase().includes(searchText);
+const searchMatch = [
+    ...(disease.name || []),
+    ...(disease.desc || []),
+    ...(disease.keywords || []),
+    disease.id || ""
+].join(" ").toLowerCase().includes(searchText);
 
     return categoryMatch && searchMatch;
 
@@ -1459,44 +1463,7 @@ function changeLanguage() {
 // SEARCH DISEASE
 
 function searchDisease() {
-    const query = document.getElementById("searchInput")
-        .value.toLowerCase().trim();
-
-    const lang = document.getElementById("language").value;
-    const index = lang === "en" ? 0 : lang === "te" ? 1 : 2;
-
-    let found = 0;
-
-    diseases.forEach(disease => {
-        const searchText = [
-            ...disease.name,
-            ...disease.keywords,
-            disease.id
-        ].join(" ").toLowerCase();
-
-        const matches = searchText.includes(query);
-
-        const card = document.querySelector(
-            `[data-id="${disease.id}"]`
-        );
-
-        if (card) {
-            card.style.display = matches ? "block" : "none";
-        }
-
-        if (matches) found++;
-    });
-
-    const oldMessage = document.getElementById("noResults");
-    if (oldMessage) oldMessage.remove();
-
-    if (found === 0) {
-        const message = document.createElement("p");
-        message.id = "noResults";
-        message.className = "no-results";
-        message.textContent = translations[lang].noResults;
-        document.getElementById("cards").appendChild(message);
-    }
+    renderCards();
 }
 
 
